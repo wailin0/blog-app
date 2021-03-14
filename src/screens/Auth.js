@@ -6,7 +6,7 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
 const Auth = ({navigation}) => {
-    const [startScreen, setStartScreen] = useState(true)
+    const [tab, setTab] = useState(1)
     return (
         <View
             style={{
@@ -17,7 +17,7 @@ const Auth = ({navigation}) => {
             {/* logo */}
             <View
                 style={{
-                    marginTop: 60, marginBottom: 30,
+                    marginTop: 30, marginBottom: 30,
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
@@ -50,15 +50,15 @@ const Auth = ({navigation}) => {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={() => setStartScreen(true)}
+                        onPress={() => setTab(1)}
                     >
-                        <Text style={{color: startScreen ? 'white' : 'darkgrey', fontSize: 18, fontWeight: 'bold'}}>
+                        <Text style={{color: tab===1 ? 'white' : 'darkgrey', fontSize: 18, fontWeight: 'bold'}}>
                             SIGN IN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => setStartScreen(false)}
+                        onPress={() => setTab(2)}
                     >
-                        <Text style={{color: startScreen ? 'darkgrey' : 'white', fontSize: 18, fontWeight: 'bold'}}>
+                        <Text style={{color: tab===2 ? 'white' : 'darkgrey', fontSize: 18, fontWeight: 'bold'}}>
                             SIGN UP</Text>
                     </TouchableOpacity>
                 </View>
@@ -77,9 +77,9 @@ const Auth = ({navigation}) => {
                             paddingHorizontal: 30, paddingVertical: 20
                         }}
                     >
-                        {startScreen
+                        {tab===1
                             ? <SignIn/>
-                            : <SignUp setStartScreen={setStartScreen}/>
+                            : <SignUp setTab={setTab}/>
                         }
                     </View>
                 </ScrollView>

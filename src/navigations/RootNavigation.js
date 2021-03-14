@@ -1,7 +1,7 @@
 import React from 'react'
 import {createStackNavigator} from "@react-navigation/stack";
 import Tabs from "./Tabs";
-import Home from "../screens/Home";
+import ArticleDetail from "../screens/ArticleDetail";
 
 const Stack = createStackNavigator()
 
@@ -14,7 +14,7 @@ const RootNavigation = () => {
             initialRouteName='Home'
         >
             <Stack.Screen name='Home' component={Tabs}/>
-            <Stack.Screen name='Blog Detail' component={Home}/>
+            <Stack.Screen name='Article Detail' component={ArticleDetail}/>
         </Stack.Navigator>
     )
 }

@@ -1,8 +1,8 @@
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import {color} from "../styles/theme";
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {color, input} from "../styles/theme";
 import React from "react";
 
-const SignUp = ({setStartScreen}) => {
+const SignUp = ({setTab}) => {
     return (
         <>
             <Text style={{color: color.darkBlue, fontSize: 24, fontWeight: '700', marginBottom: 10}}>
@@ -10,34 +10,19 @@ const SignUp = ({setStartScreen}) => {
             </Text>
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Username</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey,
-                    marginBottom: 20
-                }}
+                style={{...input}}
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Email</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey,
-                    marginBottom: 20
-                }}
+                style={{...input}}
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey,
-                    marginBottom: 20
-                }}
+                style={{...input}}
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Confirm password</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey
-                }}
+                style={{...input}}
             />
             <TouchableOpacity
                 style={{
@@ -45,7 +30,7 @@ const SignUp = ({setStartScreen}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding: 20,
-                    marginVertical: 10,
+                    marginBottom: 10,
                     borderRadius: 12
                 }}
             >
@@ -62,7 +47,7 @@ const SignUp = ({setStartScreen}) => {
                     Already have an account?
                 </Text>
                 <TouchableOpacity
-                    onPress={() => setStartScreen(true)}
+                    onPress={() => setTab(1)}
                 >
                     <Text style={{color: color.blue, fontSize: 14, fontWeight: 'bold'}}>SIGN IN</Text>
                 </TouchableOpacity>
@@ -70,5 +55,6 @@ const SignUp = ({setStartScreen}) => {
         </>
     )
 }
+
 
 export default SignUp

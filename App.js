@@ -1,22 +1,25 @@
 import {NavigationContainer} from "@react-navigation/native";
 import React, {useState} from "react";
-import {createStackNavigator} from "@react-navigation/stack";
 import Auth from "./src/screens/Auth";
 import RootNavigation from "./src/navigations/RootNavigation";
+import {StatusBar, View} from "react-native";
+import Context from "./src/components/Context";
 
 
 const App = () => {
-    const [auth, setAuth] = useState(true)
+    const [auth, setAuth] = useState(false)
 
     return (
-        // <Context.Provider value={{setAuth}}>
-        <NavigationContainer>
-            {auth
-                ? <RootNavigation/>
-                : <Auth/>
-            }
-        </NavigationContainer>
-        // </Context.Provider>
+        <View style={{flex: 1, marginTop: StatusBar.currentHeight}}>
+            <Context.Provider value={{setAuth}}>
+                <NavigationContainer>
+                    {auth
+                        ? <RootNavigation/>
+                        : <Auth/>
+                    }
+                </NavigationContainer>
+            </Context.Provider>
+        </View>
     )
 }
 

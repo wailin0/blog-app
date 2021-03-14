@@ -1,13 +1,26 @@
 import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {color} from "../styles/theme";
+import {color, input} from "../styles/theme";
 import google from "../../assets/google.png";
 import facebook from "../../assets/facebook.png";
 import twitter from "../../assets/twitter.png";
-import React from "react";
+import React, {useContext, useState} from "react";
+import Context from "./Context";
+import {user} from "../dummy";
 
 const SignIn = () => {
+    const [username, setUsername] = useState('wailin')
+    const [password, setPassword] = useState('pass')
+    const [error, setError] = useState(null)
+    const {setAuth} = useContext(Context)
 
-    // const {setAuth} = useContext(Context)
+    const signIn = () => {
+        if (username === 'wailin' && password === 'pass') {
+            setAuth(true)
+        } else {
+            setError('wrong username or password')
+        }
+    }
+
 
     return (
         <>
@@ -19,30 +32,31 @@ const SignIn = () => {
             </Text>
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Username</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey,
-                    marginBottom: 20
-                }}
+                value={username}
+                onChangeText={text => setUsername(text)}
+                style={{...input}}
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
             <TextInput
-                style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: color.darkGrey
-                }}
+                value={password}
+                onChangeText={text => setPassword(text)}
+                style={{...input}}
             />
+            {error && <Text style={{color: 'red', marginBottom: 10}}>{error}</Text>}
             <TouchableOpacity
                 style={{
                     backgroundColor: color.blue,
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding: 20,
-                    marginVertical: 20,
+                    marginBottom: 10,
                     borderRadius: 12
                 }}
+                onPress={() => signIn()}
             >
-                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>SIGN IN</Text>
+                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
+                    SIGN IN
+                </Text>
             </TouchableOpacity>
             <View
                 style={{

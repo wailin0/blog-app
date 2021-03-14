@@ -6,3 +6,9 @@ export const color = {
     darkBlue: "#0D253C",
     darkBlueText: "#2D4379"
 }
+
+export const input = {
+    borderBottomWidth: 1,
+    borderBottomColor: color.darkGrey,
+    marginBottom: 10
+}

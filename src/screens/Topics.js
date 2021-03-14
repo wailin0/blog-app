@@ -1,13 +1,12 @@
 import React from 'react'
 import {View} from "react-native";
 
-const Menu = () => {
-
+const Topics = ({navigation}) => {
     return (
-        <View style={{flex: 1}}>
+        <View>
 
         </View>
     )
 }
 
-export default Menu
+export default Topics

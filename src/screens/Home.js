@@ -1,9 +1,11 @@
 import React from 'react'
 import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {articles, popularUsers, topics} from "../dummy";
+import {articles, topics, users} from "../dummy";
 import {color} from "../styles/theme";
+import {Feather} from '@expo/vector-icons';
+import ArticleList from "../components/ArticleList";
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     const Header = () => {
         return (
@@ -12,13 +14,14 @@ const Home = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginTop: 20
+                    marginHorizontal: 30,
+                    marginVertical: 10
                 }}
             >
                 <Text style={{color: color.darkBlueText, fontSize: 18}}>
-                    Hi, Wai Lin
+                    Hi, Wai Lin!
                 </Text>
-
+                <Feather name="bell" size={24} color="black"/>
             </View>
         )
     }
@@ -57,12 +60,14 @@ const Home = () => {
         }
 
         return (
-            <View style={{marginVertical: 20}}>
+            <View style={{marginVertical: 10}}>
                 <FlatList
-                    data={popularUsers}
+                    data={users}
                     renderItem={renderItem}
+                    keyExtractor={item => item.id.toString()}
                     horizontal
                     showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{paddingLeft: 30}}
                 />
             </View>
         )
@@ -105,8 +110,10 @@ const Home = () => {
                 <FlatList
                     data={topics}
                     renderItem={renderItem}
+                    keyExtractor={item => item.id.toString()}
                     horizontal
                     showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{paddingLeft: 30}}
                 />
             </View>
         )
@@ -114,7 +121,7 @@ const Home = () => {
 
     const LatestArticles = () => {
         return (
-            <View style={{marginRight: 30}}>
+            <View style={{marginHorizontal: 30}}>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -124,44 +131,30 @@ const Home = () => {
                     <Text style={{color: color.darkBlue, fontSize: 20}}>
                         Latest Articles
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Article")}
+                    >
                         <Text style={{color: color.blue, fontSize: 14}}>
                             More
                         </Text>
                     </TouchableOpacity>
                 </View>
                 {articles.map(article =>
-                    <TouchableOpacity
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Image
-                            source={{uri: article.cover}}
-                            style={{
-                                width: 92, height: 141,
-                                borderRadius: 16,
-                                backgroundColor: 'red'
-                            }}
-                        />
-                        <View style={{marginLeft: 20}}>
-                            <Text>{article.topic}</Text>
-                            <Text>{article.title}</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <View key={article.id}>
+                        <ArticleList article={article} navigation={navigation}/>
+                    </View>
                 )}
             </View>
         )
     }
 
     return (
-        <SafeAreaView style={{flex: 1, marginLeft: 30, marginVertical: 20}}>
+        <SafeAreaView style={{flex: 1}}>
             {Header()}
-            <Text style={{fontSize: 24, color: color.darkBlue}}>
-                Explore today's
-            </Text>
             <ScrollView>
+                <Text style={{fontSize: 24, marginLeft: 30, color: color.darkBlue}}>
+                    Explore today's
+                </Text>
                 {PopularUsers()}
                 {Topics()}
                 {LatestArticles()}
