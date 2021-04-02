@@ -102,6 +102,7 @@ const Profile = ({navigation}) => {
                                     borderRadius: 12,
                                     position: 'absolute',
                                     bottom: -70,
+                                    width: '100%',
                                     elevation: 10
                                 }}
                             >

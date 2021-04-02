@@ -38,7 +38,7 @@ const Article = ({navigation}) => {
                 }}
             >
                 <Text style={{flex: 1, fontSize: 27, color: color.darkBlue}}>
-                    All Posts
+                    All Articles
                 </Text>
                 <TouchableOpacity
                     onPress={() => setTab(1)}

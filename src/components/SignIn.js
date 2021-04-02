@@ -10,6 +10,7 @@ import {user} from "../dummy";
 const SignIn = () => {
     const [username, setUsername] = useState('wailin')
     const [password, setPassword] = useState('pass')
+    const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(null)
     const {setAuth} = useContext(Context)
 
@@ -36,12 +37,26 @@ const SignIn = () => {
                 onChangeText={text => setUsername(text)}
                 style={{...input}}
             />
-            <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
-            <TextInput
-                value={password}
-                onChangeText={text => setPassword(text)}
-                style={{...input}}
-            />
+            <View>
+                <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
+                <TextInput
+                    value={password}
+                    onChangeText={text => setPassword(text)}
+                    style={{...input}}
+                    secureTextEntry={showPassword}
+                />
+                <Text
+                    style={{
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 15,
+                        color:color.blue
+                    }}
+                    onPress={() => setShowPassword(!showPassword)}
+                >
+                    {showPassword ? 'Show' : 'Hide'}
+                </Text>
+            </View>
             {error && <Text style={{color: 'red', marginBottom: 10}}>{error}</Text>}
             <TouchableOpacity
                 style={{
