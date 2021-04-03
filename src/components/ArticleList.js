@@ -44,8 +44,7 @@ const ArticleList = ({article, navigation}) => {
                         color: color.darkBlueText,
                         marginLeft: 5,
                         marginRight: 20
-                    }}>2.1k</Text>
-                    <Feather name="bookmark" size={16} color={color.blue}/>
+                    }}>2 hr ago</Text>
                 </View>
             </View>
         </TouchableOpacity>

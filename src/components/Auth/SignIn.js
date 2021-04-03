@@ -1,11 +1,10 @@
 import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {color, input} from "../styles/theme";
-import google from "../../assets/google.png";
-import facebook from "../../assets/facebook.png";
-import twitter from "../../assets/twitter.png";
+import {color, input} from "../../styles/theme";
+import google from "../../../assets/google.png";
+import facebook from "../../../assets/facebook.png";
+import twitter from "../../../assets/twitter.png";
 import React, {useContext, useState} from "react";
-import Context from "./Context";
-import {user} from "../dummy";
+import Context from "../../Context";
 
 const SignIn = () => {
     const [username, setUsername] = useState('wailin')

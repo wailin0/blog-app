@@ -11,7 +11,7 @@ import {TouchableOpacity, View} from "react-native";
 
 const Tab = createBottomTabNavigator()
 
-const CustomTabBarButton = ({children, onPress, accessibilityState, to}) => {
+const CustomTabBarButton = ({children, onPress, accessibilityState}) => {
     let isSelected = accessibilityState.selected
     return (
         <TouchableOpacity

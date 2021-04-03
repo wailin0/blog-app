@@ -1,5 +1,5 @@
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {color, input} from "../styles/theme";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {color, input} from "../../styles/theme";
 import React from "react";
 
 const SignUp = ({setTab}) => {

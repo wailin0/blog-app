@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import logo from '../../assets/logo.png'
 import {color} from "../styles/theme";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
+import SignIn from "../components/Auth/SignIn";
+import SignUp from "../components/Auth/SignUp";
 
 const Auth = ({navigation}) => {
     const [tab, setTab] = useState(1)

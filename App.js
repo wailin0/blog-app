@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Auth from "./src/screens/Auth";
 import RootNavigation from "./src/navigations/RootNavigation";
 import {StatusBar, View} from "react-native";
-import Context from "./src/components/Context";
+import Context from "./src/Context";
 
 
 const App = () => {

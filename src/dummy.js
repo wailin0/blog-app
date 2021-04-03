@@ -2,32 +2,38 @@ export const users = [
     {
         id: 1,
         name: 'Wai Lin',
-        photo: 'https'
+        photo: 'https',
+        headline: 'Designer'
     },
     {
         id: 2,
-        name: 'Wai Lin',
-        photo: 'https'
+        name: 'Wai Lin1',
+        photo: 'https',
+        headline: 'Artist'
     },
     {
         id: 3,
-        name: 'Wai Lin',
-        photo: 'https'
+        name: 'Wai Lin2',
+        photo: 'https',
+        headline: 'Politician'
     },
     {
         id: 4,
-        name: 'Wai Lin',
-        photo: 'https'
+        name: 'Wai Lin3',
+        photo: 'https',
+        headline: 'Full Stack Dev'
     },
     {
         id: 5,
-        name: 'Wai Lin',
-        photo: 'https'
+        name: 'Wai Lin4',
+        photo: 'https',
+        headline: 'Full Stack Dev'
     },
     {
         id: 6,
-        name: 'Wai Lin',
-        photo: 'https'
+        name: 'Wai Lin5',
+        photo: 'https',
+        headline: 'Full Stack Dev'
     }
 ]
 
@@ -64,7 +70,7 @@ export const articles = [
             photo: 'http'
         },
         title: 'Why Big Data Needs Thick Data',
-        body: 'Why Big Data Needs Thick Data Why Big Data Needs Thick Data',
+        body: 'Why Big Data Needs Thick Data Why Big Data Needs Thick Data ',
         createdDate: '3 jan'
     },
     {
