@@ -1,27 +1,52 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {FlatList, SafeAreaView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 import {Feather} from "@expo/vector-icons";
 import {articles} from "../dummy";
 import ArticleList from "../components/ArticleList";
 import ArticleGrid from "../components/ArticleGrid";
+import articleService from "../services/article";
 
 const Article = ({navigation}) => {
+    // const [articles, setArticles] = useState(null)
     const [tab, setTab] = useState(1)
+
+
+    // useEffect(() => {
+    //     articleService.getArticles()
+    //         .then(response => setArticles(response))
+    // }, [])
+
+
+    useEffect(() => {
+        articleService.searchArticles()
+            .then(response => setArticles(response))
+    }, [searchTerm])
+
 
     const Search = () => {
         return (
-            <TextInput
-                placeholder="search articles..."
-                style={{
-                    backgroundColor: 'white',
-                    color: color.darkBlueText,
-                    height: 40,
-                    paddingLeft: 20,
-                    borderRadius: 20,
-                    marginHorizontal: 30,
-                }}
-            />
+            <View>
+                <TextInput
+                    placeholder="search articles..."
+                    style={{
+                        backgroundColor: 'white',
+                        color: color.darkBlueText,
+                        height: 40,
+                        paddingLeft: 20,
+                        paddingRight: 45,
+                        borderRadius: 20,
+                        marginHorizontal: 30,
+                    }}
+                />
+                <Feather
+                    style={{
+                        position: 'absolute',
+                        right: 45,
+                        bottom: 8
+                    }}
+                    name="search" size={20} color='gray'/>
+            </View>
         )
     }
 
@@ -37,7 +62,7 @@ const Article = ({navigation}) => {
                     justifyContent: 'space-between'
                 }}
             >
-                <Text style={{flex: 1, fontSize: 27, color: color.darkBlue}}>
+                <Text style={{flex: 1, fontSize: 24, color: color.darkBlue}}>
                     All Articles
                 </Text>
                 <TouchableOpacity

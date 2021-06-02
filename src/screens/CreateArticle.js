@@ -1,8 +1,21 @@
 import React from 'react'
 import {SafeAreaView, ScrollView, Text, TextInput, View} from "react-native";
 import {color} from "../styles/theme";
+import articleService from "../services/article";
 
-const CreateArticle = () => {
+const CreateArticle = ({navigation}) => {
+
+    const createArticle = () => {
+        const newArticle = {
+            title: "",
+            topic: "",
+
+        }
+        articleService.createArticle(newArticle)
+            .then(response => {
+                navigation.navigate("Article Detail", {articleId: response.id})
+            })
+    }
 
     return (
         <SafeAreaView style={{flex: 1, marginTop: 10, marginHorizontal: 30}}>
@@ -37,7 +50,7 @@ const CreateArticle = () => {
                 <TextInput
                     multiline
                     style={{
-                        height:'100%',
+                        height: '100%',
                         color: color.darkBlue,
                         fontSize: 14,
                         borderBottomColor: color.darkGrey,

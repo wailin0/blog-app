@@ -10,7 +10,7 @@ const ArticleList = ({article, navigation}) => {
             style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginBottom: 10,
+                marginBottom: 10
             }}
             onPress={() => navigation.navigate("Article Detail", {
                 articleId: article.id
@@ -24,10 +24,10 @@ const ArticleList = ({article, navigation}) => {
                     backgroundColor: 'red'
                 }}
             />
-            <View style={{marginLeft: 20}}>
+            <View style={{marginLeft: 20, flex: 1}}>
                 <Text style={{marginBottom: 5, fontSize: 14, color: color.blue, fontWeight: 'bold'}}>
                     {article.topic}</Text>
-                <Text style={{fontSize: 14, color: color.darkBlue, marginRight:30}}>
+                <Text style={{fontSize: 14, color: color.darkBlue}}>
                     {article.title}
                 </Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>

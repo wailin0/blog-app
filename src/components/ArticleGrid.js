@@ -38,19 +38,18 @@ const ArticleGrid = ({article, navigation}) => {
             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
                 <Feather name="thumbs-up" color={color.darkBlueText}/>
                 <Text style={{
-                    fontSize: 15,
+                    fontSize: 13,
                     color: color.darkBlueText,
                     marginLeft: 5,
                     marginRight: 10
                 }}>2.1k</Text>
                 <Feather name="clock" color={color.darkBlueText}/>
                 <Text style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     color: color.darkBlueText,
                     marginLeft: 5,
                     marginRight: 10
-                }}>2.1k</Text>
-                <Feather name="bookmark" color={color.blue}/>
+                }}>2 hr ago</Text>
             </View>
         </TouchableOpacity>
     )

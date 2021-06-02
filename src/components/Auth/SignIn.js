@@ -5,42 +5,53 @@ import facebook from "../../../assets/facebook.png";
 import twitter from "../../../assets/twitter.png";
 import React, {useContext, useState} from "react";
 import Context from "../../Context";
+import userService from "../../services/user";
 
 const SignIn = () => {
-    const [username, setUsername] = useState('wailin')
+    const [email, setEmail] = useState('wailin@')
     const [password, setPassword] = useState('pass')
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(null)
+
     const {setAuth} = useContext(Context)
 
     const signIn = () => {
-        if (username === 'wailin' && password === 'pass') {
+        // const loginData = {
+        //     email,
+        //     password
+        // }
+        // userService.loginUser(loginData)
+        //     .then(response => setAuth(true))
+        //     .catch(() => setError('wrong username or password'))
+
+        if (email === 'wailin@' && password === 'pass') {
             setAuth(true)
         } else {
-            setError('wrong username or password')
+            setError('wrong email or password')
         }
     }
 
 
     return (
-        <>
+        <View>
             <Text style={{color: color.darkBlue, fontSize: 24, fontWeight: '700', marginBottom: 10}}>
                 Welcome back
             </Text>
             <Text style={{color: color.darkBlueText, fontSize: 14, marginBottom: 20}}>
                 Sign in with your account
             </Text>
-            <Text style={{color: color.darkBlueText, fontSize: 14}}>Username</Text>
+            <Text style={{color: color.darkBlueText, fontSize: 14}}>Email</Text>
             <TextInput
-                value={username}
-                onChangeText={text => setUsername(text)}
+                keyboardType='email-address'
+                value={email}
+                onChangeText={value => setEmail(value)}
                 style={{...input}}
             />
             <View>
                 <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
                 <TextInput
                     value={password}
-                    onChangeText={text => setPassword(text)}
+                    onChangeText={value => setPassword(value)}
                     style={{...input}}
                     secureTextEntry={showPassword}
                 />
@@ -49,14 +60,20 @@ const SignIn = () => {
                         position: 'absolute',
                         right: 0,
                         bottom: 15,
-                        color:color.blue
+                        color: color.blue
                     }}
                     onPress={() => setShowPassword(!showPassword)}
                 >
                     {showPassword ? 'Show' : 'Hide'}
                 </Text>
             </View>
-            {error && <Text style={{color: 'red', marginBottom: 10}}>{error}</Text>}
+            {error
+            && <Text
+                style={{color: 'red', marginBottom: 10}}
+            >
+                {error}
+            </Text>
+            }
             <TouchableOpacity
                 style={{
                     backgroundColor: color.blue,
@@ -110,22 +127,28 @@ const SignIn = () => {
                     <TouchableOpacity>
                         <Image
                             source={google}
+                            style={{
+                                height: 36, width: 36
+                            }}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            style={{marginHorizontal: 20}}
+                            style={{marginHorizontal: 20, height: 36, width: 36}}
                             source={facebook}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
                             source={twitter}
+                            style={{
+                                height: 36, width: 36
+                            }}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
-        </>
+        </View>
     )
 }
 

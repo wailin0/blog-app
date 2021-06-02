@@ -1,11 +1,26 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {articles, topics, users} from "../dummy";
 import {color} from "../styles/theme";
 import {Feather} from '@expo/vector-icons';
 import ArticleList from "../components/ArticleList";
+import articleService from "../services/article";
+import userService from "../services/user";
 
 const Home = ({navigation}) => {
+    // const [topTenUser, setTopTenUser] = useState(null)
+    // const [popularArticles, setPopularArticles] = useState(null)
+    //
+    // useEffect(() => {
+    //     articleService.getPopularArticles()
+    //         .then(response => setPopularArticles(response))
+    // })
+    //
+    // useEffect(() => {
+    //     userService.getTopTenUser()
+    //         .then(response => setTopTenUser(response))
+    // })
+
 
     const Header = () => {
         return (
@@ -21,19 +36,21 @@ const Home = ({navigation}) => {
                 <Text style={{color: color.darkBlueText, fontSize: 18}}>
                     Hi, Wai Lin!
                 </Text>
-                <Feather name="bell" size={24} color="black"/>
+                <TouchableOpacity>
+                    <Feather name="bell" size={24} color="black"/>
+                </TouchableOpacity>
             </View>
         )
     }
 
     const PopularUsers = () => {
-
         const renderItem = ({item}) => {
             return (
                 <TouchableOpacity
                     style={{
                         marginRight: 10,
                     }}
+                    onPress={() => navigation.navigate("User Profile", {userId: item.id})}
                 >
                     <View
                         style={{
@@ -74,7 +91,6 @@ const Home = ({navigation}) => {
     }
 
     const Topics = () => {
-
         const renderItem = ({item}) => {
             return (
                 <TouchableOpacity
@@ -147,6 +163,11 @@ const Home = ({navigation}) => {
             </View>
         )
     }
+
+    //
+    // if (!topTenUser && !popularArticles) {
+    //     return null
+    // }
 
     return (
         <SafeAreaView style={{flex: 1}}>

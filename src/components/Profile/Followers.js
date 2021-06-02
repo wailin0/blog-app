@@ -1,22 +1,28 @@
 import React, {useEffect, useState} from "react";
 import UserList from "../UserList";
 import {users} from "../../dummy";
-import {View} from "react-native";
+import {Text, View} from "react-native";
+import {color} from "../../styles/theme";
+import userService from "../../services/user";
 
-const Followers = ({navigation}) => {
-    const [followers, setFollowers] = useState(null)
-
-    useEffect(() => {
-        setFollowers(users)
-    }, [])
-
-    if(!followers){
-        return null
-    }
+const Followers = ({navigation, userId}) => {
+    // const [followers, setFollowers] = useState(null)
+    //
+    // useEffect(() => {
+    //     userService.getUserFollowers(userId)
+    //         .then(response => setFollowers(response))
+    // }, [])
+    //
+    // if (!followers) {
+    //     return null
+    // }
 
     return (
         <>
-            {followers.map(user =>
+            <Text style={{color: color.darkBlue, marginBottom: 20, fontSize: 20}}>
+                Followers
+            </Text>
+            {users.map(user =>
                 <View key={user.id}>
                     <UserList user={user} navigation={navigation}/>
                 </View>

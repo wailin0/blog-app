@@ -2,7 +2,7 @@ import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
-import Explore from "../screens/Explore";
+import More from "../screens/More";
 import Article from "../screens/Article";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
@@ -16,12 +16,7 @@ const CustomTabBarButton = ({children, onPress, accessibilityState}) => {
     return (
         <TouchableOpacity
             style={{
-                top: -20,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                borderRadius:30,
-                padding:4
+                top: -20
             }}
             onPress={onPress}
         >
@@ -68,18 +63,9 @@ const Tabs = () => {
                     tabBarLabel: '',
                     tabBarIcon: ({focused}) =>
                         focused
-                            ? <Feather name="x" size={30} color='white'/>
-                            : <Feather name="plus" size={30} color='white'/>,
+                            ? <Feather name="x" size={24} color='white'/>
+                            : <Feather name="plus" size={24} color='white'/>,
                     tabBarButton: (props => <CustomTabBarButton {...props} />)
-                }}
-            />
-            <Tab.Screen
-                name='Explore'
-                component={Explore}
-                options={{
-                    tabBarIcon: ({focused}) =>
-                        <Feather name="search" size={24}
-                                 color={focused ? color.blue : color.darkGrey}/>
                 }}
             />
             <Tab.Screen
@@ -88,6 +74,15 @@ const Tabs = () => {
                 options={{
                     tabBarIcon: ({focused}) =>
                         <Feather name="user" size={24}
+                                 color={focused ? color.blue : color.darkGrey}/>
+                }}
+            />
+            <Tab.Screen
+                name='More'
+                component={More}
+                options={{
+                    tabBarIcon: ({focused}) =>
+                        <Feather name="grid" size={24}
                                  color={focused ? color.blue : color.darkGrey}/>
                 }}
             />

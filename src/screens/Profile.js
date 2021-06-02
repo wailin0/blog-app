@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from 'react'
-import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, {useContext, useEffect, useState} from 'react'
+import {Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
 import {articles, user as userdummy, users} from "../dummy";
 import ArticleList from "../components/ArticleList";
 import Following from "../components/Profile/Following";
 import Followers from "../components/Profile/Followers";
+import Context from "../Context";
+import MyPosts from "../components/Profile/MyPosts";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
     const [user, setUser] = useState(null)
+    const [popup, setPopup] = useState(false)
 
-    const userId = route.params?.userId
+    const {setAuth} = useContext(Context)
 
+    let userId = null
     useEffect(() => {
+        userId = route.params?.userId
+
         if (userId) setUser(users.find(user => user.id === userId))
         else setUser(userdummy)
     }, [])
@@ -45,7 +51,9 @@ const Profile = ({navigation, route}) => {
                 >
                     {userId ? `${user.name}'s Profile` : 'Your Profile'}
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => setPopup(!popup)}
+                >
                     <Feather name="more-horizontal" size={32} color="black"/>
                 </TouchableOpacity>
             </View>
@@ -68,7 +76,7 @@ const Profile = ({navigation, route}) => {
                             backgroundColor: "white",
                             borderRadius: 16,
                             paddingHorizontal: 20,
-                            paddingVertical: 30
+                            paddingTop: 30
                         }}
                     >
                         <View
@@ -108,14 +116,13 @@ const Profile = ({navigation, route}) => {
                         <View>
                             <Text style={{
                                 marginTop: 20,
-                                marginBottom: 5,
                                 fontSize: 16,
                                 color: color.darkBlue,
                                 fontWeight: '700'
                             }}>
                                 About me
                             </Text>
-                            <Text style={{marginBottom: 20, fontSize: 14, color: color.darkBlueText}}>
+                            <Text style={{fontSize: 14, color: color.darkBlueText}}>
                                 {user.aboutMe}
                             </Text>
 
@@ -124,11 +131,9 @@ const Profile = ({navigation, route}) => {
                                     flexDirection: 'row',
                                     backgroundColor: color.darkGrey,
                                     borderRadius: 12,
-                                    position: 'absolute',
-                                    bottom: -70,
+                                    bottom: -20,
                                     width: '100%',
-                                    height: 68,
-                                    elevation: 10
+                                    height: 68
                                 }}
                             >
                                 <TouchableOpacity
@@ -158,7 +163,7 @@ const Profile = ({navigation, route}) => {
                 </View>
                 <View
                     style={{
-                        marginTop: 60,
+                        marginTop: 30,
                         borderTopLeftRadius: 28,
                         borderTopRightRadius: 28,
                         backgroundColor: 'white',
@@ -167,23 +172,58 @@ const Profile = ({navigation, route}) => {
                         paddingTop: 20
                     }}
                 >
-                    <Text style={{color: color.darkBlue, marginBottom: 20, fontSize: 20}}>
-                        {tab === 1 && 'My Posts'}
-                        {tab === 2 && 'Following'}
-                        {tab === 3 && 'Followers'}
-                    </Text>
-
-                    {tab === 1 && articles.map(article =>
-                        <View key={article.id}>
-                            <ArticleList article={article} navigation={navigation}/>
-                        </View>
-                    )}
-
-                    {tab === 2 && <Following navigation={navigation}/>}
-                    {tab === 3 && <Followers navigation={navigation}/>}
+                    {tab === 1 && <MyPosts navigation={navigation} userId={userId}/>}
+                    {tab === 2 && <Following navigation={navigation} userId={userId}/>}
+                    {tab === 3 && <Followers navigation={navigation} userId={userId}/>}
                 </View>
             </ScrollView>
 
+            <Modal
+                visible={popup}
+                transparent
+                onRequestClose={() => setPopup(false)}
+            >
+                <TouchableOpacity onPress={() => setPopup(false)} activeOpacity={1} style={{flex: 1}}>
+                    <View
+                        style={{
+                            right: 65,
+                            top: 40,
+                            position: 'absolute',
+                            backgroundColor: 'lightgray',
+                            borderRadius: 5,
+                            padding: 10,
+                            elevation: 5
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 15
+                            }}
+                            onPress={() => {
+                                setPopup(false)
+                                navigation.navigate("Settings")
+                            }}
+                        >
+                            <Feather name="settings" style={{marginRight: 10}} size={20} color="black"/>
+                            <Text style={{fontSize: 17}}>Settings</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}
+                            onPress={() => setAuth(false)}
+                        >
+                            <Feather name="log-out" style={{marginRight: 10}} size={20} color="black"/>
+                            <Text style={{fontSize: 17}}>Log
+
+                                out</Text>
+                        </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+            </Modal>
         </SafeAreaView>
     )
 }
