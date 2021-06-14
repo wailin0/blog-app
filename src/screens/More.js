@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react'
 import {FlatList, SafeAreaView, Text, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
-import Context from "../Context";
+import {AuthContext} from "../context/Context";
 
 const more = [
     {
@@ -11,11 +11,11 @@ const more = [
     },
     {
         name: "Help",
-        icon: "help"
+        icon: "help-circle"
     },
     {
         name: "About",
-        icon: "question"
+        icon: "info"
     },
     {
         name: "Dark Mode",
@@ -31,7 +31,7 @@ const More = ({navigation}) => {
 
     const [darkmode, setDarkMode] = useState(false)
 
-    const {setAuth} = useContext(Context)
+    const {setAuth} = useContext(AuthContext)
 
 
     const renderItem = ({item, index}) => {

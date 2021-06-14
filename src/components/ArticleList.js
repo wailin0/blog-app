@@ -2,6 +2,7 @@ import React from 'react'
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
+import moment from "moment";
 
 const ArticleList = ({article, navigation}) => {
 
@@ -17,14 +18,14 @@ const ArticleList = ({article, navigation}) => {
             })}
         >
             <Image
-                source={{uri: article.cover}}
+                source={{uri: article.photo}}
                 style={{
                     width: 92, height: 141,
                     borderRadius: 16,
                     backgroundColor: 'red'
                 }}
             />
-            <View style={{marginLeft: 20, flex: 1}}>
+            <View style={{marginLeft: 10, flex: 1}}>
                 <Text style={{marginBottom: 5, fontSize: 14, color: color.blue, fontWeight: 'bold'}}>
                     {article.topic}</Text>
                 <Text style={{fontSize: 14, color: color.darkBlue}}>
@@ -36,15 +37,14 @@ const ArticleList = ({article, navigation}) => {
                         fontSize: 16,
                         color: color.darkBlueText,
                         marginLeft: 5,
-                        marginRight: 20
+                        marginRight: 10
                     }}>2.1k</Text>
                     <Feather name="clock" size={16} color={color.darkBlueText}/>
                     <Text style={{
                         fontSize: 16,
                         color: color.darkBlueText,
-                        marginLeft: 5,
-                        marginRight: 20
-                    }}>2 hr ago</Text>
+                        marginLeft: 5
+                    }}>{moment(article.createdAt).fromNow(true)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

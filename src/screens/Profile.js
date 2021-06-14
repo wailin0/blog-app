@@ -1,28 +1,72 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from 'react'
+import {Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
-import {articles, user as userdummy, users} from "../dummy";
-import ArticleList from "../components/ArticleList";
 import Following from "../components/Profile/Following";
 import Followers from "../components/Profile/Followers";
-import Context from "../Context";
-import MyPosts from "../components/Profile/MyPosts";
+import MyArticles from "../components/Profile/MyArticles";
+import userService from "../services/user";
+import {useDispatch, useSelector} from "react-redux";
+import * as ImagePicker from 'expo-image-picker';
+import firebase from 'firebase/app'
+import 'firebase/storage';
+import {updateUser} from "../redux/reducers/UserReducer";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
     const [user, setUser] = useState(null)
-    const [popup, setPopup] = useState(false)
 
-    const {setAuth} = useContext(Context)
+    const authUser = useSelector(state => state.user)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        setUser(authUser)
+    }, [authUser])
 
     let userId = null
     useEffect(() => {
         userId = route.params?.userId
-
-        if (userId) setUser(users.find(user => user.id === userId))
-        else setUser(userdummy)
+        if (userId) {
+            userService.getUserById(userId)
+                .then(response => setUser(response))
+                .catch(e => console.log(e))
+        } else setUser(authUser)
     }, [])
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
+
+    const uploadImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            const photoName = Math.random().toString(36).substring(7);
+            const response = await fetch(result.uri)
+            const blob = await response.blob();
+            const ref = firebase.storage().ref().child(`/user/${user.id}`).child(`${photoName}.png`);
+            ref.put(blob)
+                .then(() => {
+                    ref.getDownloadURL().then(res => {
+                        dispatch(updateUser({photo: res}))
+                    })
+                })
+                .catch(e => console.log(e))
+        }
+    };
 
     const Header = () => {
         return (
@@ -49,13 +93,8 @@ const Profile = ({navigation, route}) => {
                         marginRight: 'auto'
                     }}
                 >
-                    {userId ? `${user.name}'s Profile` : 'Your Profile'}
+                    {user.id === authUser.id ? 'Your profile' : `${user.name}'s profile`}
                 </Text>
-                <TouchableOpacity
-                    onPress={() => setPopup(!popup)}
-                >
-                    <Feather name="more-horizontal" size={32} color="black"/>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -103,6 +142,21 @@ const Profile = ({navigation, route}) => {
                                         borderWidth: 1
                                     }}
                                 />
+                                {user.id===authUser.id &&
+                                    <TouchableOpacity
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            padding: 5,
+                                            right: 0,
+                                            borderRadius: 50,
+                                            backgroundColor: 'darkgray'
+                                        }}
+                                        onPress={uploadImage}
+                                    >
+                                        <Feather name='edit-2' size={15} color='black'/>
+                                    </TouchableOpacity>
+                                }
                             </View>
                             <View style={{marginRight: 'auto', marginLeft: 20}}>
                                 <Text style={{fontSize: 18, color: color.darkBlue}}>
@@ -172,58 +226,11 @@ const Profile = ({navigation, route}) => {
                         paddingTop: 20
                     }}
                 >
-                    {tab === 1 && <MyPosts navigation={navigation} userId={userId}/>}
-                    {tab === 2 && <Following navigation={navigation} userId={userId}/>}
-                    {tab === 3 && <Followers navigation={navigation} userId={userId}/>}
+                    {tab === 1 && <MyArticles navigation={navigation} userId={user.id}/>}
+                    {tab === 2 && <Following navigation={navigation} userId={user.id}/>}
+                    {tab === 3 && <Followers navigation={navigation} userId={user.id}/>}
                 </View>
             </ScrollView>
-
-            <Modal
-                visible={popup}
-                transparent
-                onRequestClose={() => setPopup(false)}
-            >
-                <TouchableOpacity onPress={() => setPopup(false)} activeOpacity={1} style={{flex: 1}}>
-                    <View
-                        style={{
-                            right: 65,
-                            top: 40,
-                            position: 'absolute',
-                            backgroundColor: 'lightgray',
-                            borderRadius: 5,
-                            padding: 10,
-                            elevation: 5
-                        }}
-                    >
-                        <TouchableOpacity
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginBottom: 15
-                            }}
-                            onPress={() => {
-                                setPopup(false)
-                                navigation.navigate("Settings")
-                            }}
-                        >
-                            <Feather name="settings" style={{marginRight: 10}} size={20} color="black"/>
-                            <Text style={{fontSize: 17}}>Settings</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}
-                            onPress={() => setAuth(false)}
-                        >
-                            <Feather name="log-out" style={{marginRight: 10}} size={20} color="black"/>
-                            <Text style={{fontSize: 17}}>Log
-
-                                out</Text>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-            </Modal>
         </SafeAreaView>
     )
 }

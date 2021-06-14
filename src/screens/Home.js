@@ -1,25 +1,34 @@
 import React, {useEffect, useState} from 'react'
 import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {articles, topics, users} from "../dummy";
 import {color} from "../styles/theme";
 import {Feather} from '@expo/vector-icons';
 import ArticleList from "../components/ArticleList";
 import articleService from "../services/article";
 import userService from "../services/user";
+import {useSelector} from "react-redux";
 
 const Home = ({navigation}) => {
-    // const [topTenUser, setTopTenUser] = useState(null)
-    // const [popularArticles, setPopularArticles] = useState(null)
-    //
-    // useEffect(() => {
-    //     articleService.getPopularArticles()
-    //         .then(response => setPopularArticles(response))
-    // })
-    //
-    // useEffect(() => {
-    //     userService.getTopTenUser()
-    //         .then(response => setTopTenUser(response))
-    // })
+    const [topTenUser, setTopTenUser] = useState(null)
+    const [topics, setTopics] = useState(null)
+    const [popularArticles, setPopularArticles] = useState(null)
+    const user = useSelector(state => state.user)
+
+    useEffect(() => {
+        articleService.getPopularArticles()
+            .then(response => setPopularArticles(response))
+            .catch(e => console.log(e))
+    }, [])
+
+    useEffect(() => {
+        userService.getTopTenUser()
+            .then(response => setTopTenUser(response))
+            .catch(e => console.log(e))
+    }, [])
+
+    useEffect(() => {
+        articleService.getTopics()
+            .then(res => setTopics(res))
+    }, [])
 
 
     const Header = () => {
@@ -34,7 +43,7 @@ const Home = ({navigation}) => {
                 }}
             >
                 <Text style={{color: color.darkBlueText, fontSize: 18}}>
-                    Hi, Wai Lin!
+                    Hi, {user && user.name}
                 </Text>
                 <TouchableOpacity>
                     <Feather name="bell" size={24} color="black"/>
@@ -50,7 +59,7 @@ const Home = ({navigation}) => {
                     style={{
                         marginRight: 10,
                     }}
-                    onPress={() => navigation.navigate("User Profile", {userId: item.id})}
+                    onPress={() => navigation.push("User Profile", {userId: item.id})}
                 >
                     <View
                         style={{
@@ -79,7 +88,7 @@ const Home = ({navigation}) => {
         return (
             <View style={{marginVertical: 10}}>
                 <FlatList
-                    data={users}
+                    data={topTenUser}
                     renderItem={renderItem}
                     keyExtractor={item => item.id.toString()}
                     horizontal
@@ -97,6 +106,7 @@ const Home = ({navigation}) => {
                     style={{
                         marginRight: 10
                     }}
+                    onPress={() => navigation.navigate("Article", {topic: item.title})}
                 >
                     <Image
                         source={{uri: item.photo}}
@@ -126,7 +136,7 @@ const Home = ({navigation}) => {
                 <FlatList
                     data={topics}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={(item, index) => index.toString()}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{paddingLeft: 30}}
@@ -135,7 +145,7 @@ const Home = ({navigation}) => {
         )
     }
 
-    const LatestArticles = () => {
+    const PopularArticles = () => {
         return (
             <View style={{marginHorizontal: 30}}>
                 <View style={{
@@ -155,7 +165,7 @@ const Home = ({navigation}) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                {articles.map(article =>
+                {popularArticles.map(article =>
                     <View key={article.id}>
                         <ArticleList article={article} navigation={navigation}/>
                     </View>
@@ -164,11 +174,9 @@ const Home = ({navigation}) => {
         )
     }
 
-    //
-    // if (!topTenUser && !popularArticles) {
-    //     return null
-    // }
-
+    if(!topics && !user && !popularArticles){
+        return null
+    }
     return (
         <SafeAreaView style={{flex: 1}}>
             {Header()}
@@ -178,7 +186,7 @@ const Home = ({navigation}) => {
                 </Text>
                 {PopularUsers()}
                 {Topics()}
-                {LatestArticles()}
+                {popularArticles && PopularArticles()}
             </ScrollView>
         </SafeAreaView>
     )

@@ -1,12 +1,32 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color, input} from "../../styles/theme";
 import React, {useState} from "react";
+import userService from "../../services/user";
 
-const SignUp = ({setTab}) => {
-    const [username, setUsername] = useState("")
+const SignUp = ({setTab, navigation}) => {
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [error, setError] = useState("")
+
+    const checkUniqueEmail = () => {
+        userService.checkEmail({email})
+            .then(res => setError(res.error))
+            .catch(e => console.log(e))
+    }
+
+    const next = () => {
+        const newUser = {
+            name,
+            email,
+            password
+        }
+        setTab(1)
+        navigation.push("SignUp Final", {
+            user: newUser
+        })
+    }
 
     return (
         <>
@@ -17,13 +37,16 @@ const SignUp = ({setTab}) => {
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Username</Text>
             <TextInput
                 style={{...input}}
-                value={username}
-                onChangeText={value => setUsername(value)}
+                value={name}
+                onChangeText={value => setName(value)}
             />
-            <Text style={{color: color.darkBlueText, fontSize: 14}}>Email</Text>
+            <Text style={{color: color.darkBlueText, fontSize: 14}}>Email
+                {error && <Text style={{color: 'red'}}> ({error})</Text>}
+            </Text>
             <TextInput
                 keyboardType='email-address'
                 style={{...input}}
+                onBlur={() => checkUniqueEmail()}
                 value={email}
                 onChangeText={value => setEmail(value)}
             />
@@ -33,7 +56,10 @@ const SignUp = ({setTab}) => {
                 value={password}
                 onChangeText={value => setPassword(value)}
             />
-            <Text style={{color: color.darkBlueText, fontSize: 14}}>Confirm password</Text>
+            <Text style={{color: color.darkBlueText, fontSize: 14}}>
+                Confirm password {((password && confirmPassword) && password !== confirmPassword)
+            && <Text style={{color: 'red'}}>(must be the same as above)</Text>}
+            </Text>
             <TextInput
                 style={{...input}}
                 value={confirmPassword}
@@ -48,8 +74,10 @@ const SignUp = ({setTab}) => {
                     marginBottom: 10,
                     borderRadius: 12
                 }}
+                disabled={!(!error && name && email && password && confirmPassword && (password === confirmPassword))}
+                onPress={() => next()}
             >
-                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>SIGN UP</Text>
+                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>Next</Text>
             </TouchableOpacity>
             <View
                 style={{

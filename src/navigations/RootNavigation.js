@@ -6,6 +6,7 @@ import Profile from "../screens/Profile";
 import Settings from "../screens/Settings";
 import Account from "../screens/Settings/Account";
 import About from "../screens/About";
+import CreateArticle from "../screens/CreateArticle";
 
 const Stack = createStackNavigator()
 
@@ -20,6 +21,7 @@ const RootNavigation = () => {
         >
             <Stack.Screen name='Home' component={Tabs}/>
             <Stack.Screen name='Article Detail' component={ArticleDetail}/>
+            <Stack.Screen name='Create Article' component={CreateArticle} />
             <Stack.Screen name='User Profile'  component={Profile}/>
             <Stack.Screen name='Settings' options={{headerShown: true}} component={Settings} />
             <Stack.Screen name='Account' options={{headerShown: true}} component={Account} />

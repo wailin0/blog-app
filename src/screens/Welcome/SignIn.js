@@ -4,25 +4,39 @@ import google from "../../../assets/google.png";
 import facebook from "../../../assets/facebook.png";
 import twitter from "../../../assets/twitter.png";
 import React, {useContext, useState} from "react";
-import Context from "../../Context";
+import {AuthContext} from "../../context/Context";
 import userService from "../../services/user";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getLoginUser} from "../../redux/reducers/UserReducer";
+import {useDispatch} from "react-redux";
 
 const SignIn = () => {
-    const [email, setEmail] = useState('wailin@')
-    const [password, setPassword] = useState('pass')
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(null)
 
-    const {setAuth} = useContext(Context)
+    const dispatch = useDispatch()
+    const {setAuth} = useContext(AuthContext)
 
     const signIn = () => {
-        // const loginData = {
-        //     email,
-        //     password
-        // }
-        // userService.loginUser(loginData)
-        //     .then(response => setAuth(true))
-        //     .catch(() => setError('wrong username or password'))
+        const loginData = {
+            email,
+            password
+        }
+        userService.loginUser(loginData)
+            .then(response => {
+                console.log(response)
+                AsyncStorage.setItem('token', response.token)
+                AsyncStorage.getItem('token')
+                    .then(token => {
+                        if (token) {
+                            dispatch(getLoginUser())
+                            setAuth(true)
+                        }
+                    })
+            })
+            .catch(() => setError('wrong username or password'))
 
         if (email === 'wailin@' && password === 'pass') {
             setAuth(true)

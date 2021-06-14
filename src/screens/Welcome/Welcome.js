@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import logo from '../../assets/logo.png'
-import {color} from "../styles/theme";
-import SignIn from "../components/Auth/SignIn";
-import SignUp from "../components/Auth/SignUp";
+import logo from '../../../assets/logo.png'
+import {color} from "../../styles/theme";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
-const Auth = ({navigation}) => {
+const Welcome = ({navigation}) => {
     const [tab, setTab] = useState(1)
     return (
         <View
@@ -78,8 +78,8 @@ const Auth = ({navigation}) => {
                         }}
                     >
                         {tab===1
-                            ? <SignIn/>
-                            : <SignUp setTab={setTab}/>
+                            ? <SignIn navigation={navigation}/>
+                            : <SignUp setTab={setTab} navigation={navigation}/>
                         }
                     </View>
                 </ScrollView>
@@ -90,4 +90,4 @@ const Auth = ({navigation}) => {
     )
 }
 
-export default Auth
+export default Welcome

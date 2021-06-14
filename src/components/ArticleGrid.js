@@ -2,6 +2,7 @@ import React from 'react'
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
+import moment from "moment";
 
 const ArticleGrid = ({article, navigation}) => {
 
@@ -21,7 +22,7 @@ const ArticleGrid = ({article, navigation}) => {
             })}
         >
             <Image
-                source={{uri: article.cover}}
+                source={{uri: article.photo}}
                 style={{
                     width: '100%', height: '100%',
                     borderRadius: 16
@@ -49,7 +50,7 @@ const ArticleGrid = ({article, navigation}) => {
                     color: color.darkBlueText,
                     marginLeft: 5,
                     marginRight: 10
-                }}>2 hr ago</Text>
+                }}>{moment(article.createdAt).fromNow(true)}</Text>
             </View>
         </TouchableOpacity>
     )

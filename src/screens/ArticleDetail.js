@@ -1,32 +1,50 @@
 import React, {useEffect, useState} from 'react'
-import {
-    Image,
-    Modal,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
-} from "react-native";
+import {Alert, Image, Modal, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
-import {articles} from "../dummy";
 import {color} from "../styles/theme";
 import articleService from "../services/article";
+import moment from "moment";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteArticle} from "../redux/reducers/ArticleReducer";
 
 const ArticleDetail = ({navigation, route}) => {
     const [popup, setPopup] = useState(false)
-    // const [article, setArticle] = useState(null)
+    const [article, setArticle] = useState(null)
+    const user = useSelector(state => state.user)
+
+    const dispatch = useDispatch()
 
     const {articleId} = route.params
 
-    // useEffect(() => {
-    //     articleService.getArticleById(articleId)
-    //         .then(res => setArticle(res.data))
-    // }, [])
+    useEffect(() => {
+        articleService.getArticleById(articleId)
+            .then(res => {
+                setArticle(res)
+            })
+            .catch(e => console.log(e))
+    }, [])
 
+    const deleteUserArticle = () => {
+        Alert.alert(
+            'Delete Article?',
+            "Do you really wanna do tis?",
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK', onPress: async () => {
+                        await dispatch(deleteArticle(articleId))
+                        setPopup(false)
+                        navigation.goBack()
+                    }
+                },
+            ]
+        )
+    }
 
-    const article = articles.find(a => a.id === articleId)
 
     const Header = () => {
         return (
@@ -86,10 +104,10 @@ const ArticleDetail = ({navigation, route}) => {
                             flexDirection: 'row',
                             marginRight: 'auto'
                         }}
-                        onPress={() => navigation.navigate('User Profile', {userId: article.author.id})}
+                        onPress={() => navigation.push('User Profile', {userId: article.user.id})}
                     >
                         <Image
-                            source={{uri: article.author.photo}}
+                            source={{uri: article.user.photo}}
                             style={{
                                 width: 38, height: 38,
                                 borderRadius: 12,
@@ -101,13 +119,13 @@ const ArticleDetail = ({navigation, route}) => {
                                 color: color.darkBlueText,
                                 fontSize: 14,
                             }}>
-                                {article.author.name}
+                                {article.user.name}
                             </Text>
                             <Text style={{
                                 color: color.darkGrey,
                                 fontSize: 12
                             }}
-                            >{article.createdDate}</Text>
+                            >{moment(article.createdAt).fromNow()}</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -127,7 +145,7 @@ const ArticleDetail = ({navigation, route}) => {
             >
                 {/*    article cover */}
                 <Image
-                    source={{uri: article.cover}}
+                    source={{uri: article.photo}}
                     style={{
                         borderTopLeftRadius: 28,
                         borderTopRightRadius: 28,
@@ -140,7 +158,7 @@ const ArticleDetail = ({navigation, route}) => {
                     marginVertical: 20, marginHorizontal: 30,
                     fontSize: 14, color: color.darkBlueText
                 }}>
-                    {article.body}
+                    {article.content}
                 </Text>
             </ScrollView>
             <TouchableOpacity
@@ -184,16 +202,48 @@ const ArticleDetail = ({navigation, route}) => {
                             elevation: 5
                         }}
                     >
-                        <TouchableOpacity
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginBottom: 15
-                            }}
-                        >
-                            <Feather name="bookmark" style={{marginRight: 10}} size={20} color="black"/>
-                            <Text style={{fontSize: 17}}>Save</Text>
-                        </TouchableOpacity>
+                        {(user && user.id === article.user.id)
+                            ?
+                            <>
+                                <TouchableOpacity
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        marginBottom: 15
+                                    }}
+                                    onPress={() => {
+                                        navigation.push("Create Article", {article})
+                                        setPopup(false)
+                                    }}
+                                >
+                                    <Feather name="edit" style={{marginRight: 10}} size={20} color="black"/>
+                                    <Text style={{fontSize: 17}}>Edit</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        marginBottom: 15
+                                    }}
+                                    onPress={() => deleteUserArticle()}
+                                >
+                                    <Feather name="trash" style={{marginRight: 10}} size={20} color="black"/>
+                                    <Text style={{fontSize: 17}}>Delete</Text>
+                                </TouchableOpacity>
+                            </>
+                            :
+                            <TouchableOpacity
+                                style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    marginBottom: 15
+                                }}
+                            >
+                                <Feather name="bookmark" style={{marginRight: 10}} size={20} color="black"/>
+                                <Text style={{fontSize: 17}}>Save</Text>
+                            </TouchableOpacity>
+
+                        }
                         <TouchableOpacity
                             style={{
                                 flexDirection: 'row',

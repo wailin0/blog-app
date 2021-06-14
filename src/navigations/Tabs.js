@@ -11,14 +11,14 @@ import {TouchableOpacity, View} from "react-native";
 
 const Tab = createBottomTabNavigator()
 
-const CustomTabBarButton = ({children, onPress, accessibilityState}) => {
+const CustomTabBarButton = ({children, onPress, accessibilityState, navigation}) => {
     let isSelected = accessibilityState.selected
     return (
         <TouchableOpacity
             style={{
-                top: -20
+                top: -15
             }}
-            onPress={onPress}
+            onPress={() => isSelected ? navigation.goBack() : onPress()}
         >
             <View
                 style={{
@@ -34,7 +34,7 @@ const CustomTabBarButton = ({children, onPress, accessibilityState}) => {
     )
 }
 
-const Tabs = () => {
+const Tabs = ({navigation}) => {
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -56,16 +56,15 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
-                name='CreateArticle'
+                name='Create Article'
                 component={CreateArticle}
-
                 options={{
                     tabBarLabel: '',
                     tabBarIcon: ({focused}) =>
                         focused
                             ? <Feather name="x" size={24} color='white'/>
                             : <Feather name="plus" size={24} color='white'/>,
-                    tabBarButton: (props => <CustomTabBarButton {...props} />)
+                    tabBarButton: ((props) => <CustomTabBarButton navigation={navigation} {...props} />)
                 }}
             />
             <Tab.Screen

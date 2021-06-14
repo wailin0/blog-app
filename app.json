@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/icon.png"
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/wailin0/blog-app"
   }
 }

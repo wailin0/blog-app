@@ -1,13 +1,8 @@
 import {baseUrl} from "../config/api";
-import {articles} from "../dummy";
-
-const getArticles = async () => {
-    const response = await fetch(`${baseUrl}/article`)
-    return response.json()
-}
+import storage from '../config/storage'
 
 const getPopularArticles = async () => {
-    const response = await fetch(`${baseUrl}/popular-articles`)
+    const response = await fetch(`${baseUrl}/article/popular-articles`)
     return response.json()
 }
 
@@ -21,36 +16,59 @@ const getArticleById = async (articleId) => {
     return response.json()
 }
 
-const searchArticles = async (articleName, topic) => {
-    const response = await fetch(`${baseUrl}/article?name=${articleName}&topic=${topic}`)
+const getArticles = async (articleTitle, topic, page) => {
+    const response = await fetch(`${baseUrl}/article?title=${articleTitle}&topic=${topic}&page=${page}`)
     return response.json()
 }
 
 const createArticle = async (newArticle) => {
+    const token = await storage.getToken()
     const response = await fetch(`${baseUrl}/article`,
-        {method: "POST", body: JSON.stringify(newArticle)})
+        {
+            method: "POST",
+            body: JSON.stringify(newArticle),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
     return response.json()
 }
 
 const updateArticle = async (updatedArticle) => {
     const response = await fetch(`${baseUrl}/article/${updatedArticle.id}`,
-        {method: "PUT", body: JSON.stringify(updatedArticle)})
+        {
+            method: "PUT",
+            body: JSON.stringify(updatedArticle),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     return response.json()
 }
 
 const deleteArticle = async (articleId) => {
+    const token = await storage.getToken()
     const response = await fetch(`${baseUrl}/article/${articleId}`,
-        {method: "DELETE"})
+        {
+            method: "DELETE",
+            headers: {"Authorization": token}
+        })
+    return response.json()
+}
+
+const getTopics = async () => {
+    const response = await fetch(`${baseUrl}/article/topic`)
     return response.json()
 }
 
 export default {
-    getArticles,
     getPopularArticles,
     getArticleById,
-    searchArticles,
+    getArticles,
     createArticle,
     getUserArticles,
     updateArticle,
-    deleteArticle
+    deleteArticle,
+    getTopics
 }
