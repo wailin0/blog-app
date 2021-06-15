@@ -10,14 +10,13 @@ import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
 import {updateUser} from "../redux/reducers/UserReducer";
 import articleService from "../services/article";
-import {followUser} from "../redux/reducers/FollowingReducer";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
     const [user, setUser] = useState(null)
+    const [alreadyFollow, setAlreadyFollow] = useState(false)
 
     const authUser = useSelector(state => state.user)
-    const following = useSelector(state => state.following)
 
     const dispatch = useDispatch()
 
@@ -29,12 +28,15 @@ const Profile = ({navigation, route}) => {
             userService.getUserById(userId)
                 .then(response => setUser(response))
                 .catch(e => console.log(e))
+
+            userService.checkFollow(userId)
+                .then(res => setAlreadyFollow(res))
         } else setUser(authUser)
 
         return () => {
             setUser(null)
         }
-    }, [])
+    }, [authUser])
 
     useEffect(() => {
         (async () => {
@@ -53,10 +55,11 @@ const Profile = ({navigation, route}) => {
             allowsEditing: true,
             aspect: [4, 4],
             quality: 1,
+            base64: true
         });
         if (!result.cancelled) {
             let data = {
-                "file": result.uri,
+                "file": `data:image/jpg;base64,${result.base64}`,
                 "upload_preset": "rztxsnps",
             }
             articleService.uploadImage(data)
@@ -68,9 +71,9 @@ const Profile = ({navigation, route}) => {
     }
 
     const follow = () => {
-        dispatch(followUser({followedId: user.id}))
+        userService.followUser({followedId: user.id})
+            .then(() => setAlreadyFollow(true))
     }
-
 
     const Header = () => {
         return (
@@ -189,13 +192,15 @@ const Profile = ({navigation, route}) => {
                                 }}
                                 onPress={() => follow()}
                             >
-                                {following && !following.some(f => f.following.id === user.id) ?
-                                <>
-                                    <Feather name='user-plus' size={15} color='white'/>
-                                    <Text style={{marginLeft: 5, color: 'white'}}>Follow</Text>
-                                </>
-                                :
-                                <Text>Following</Text>
+                                {alreadyFollow
+                                    ?
+                                    <Text>Following</Text>
+                                    :
+                                    <>
+                                        <Feather name='user-plus' size={15} color='white'/>
+                                        <Text style={{marginLeft: 5, color: 'white'}}>Follow</Text>
+                                    </>
+
                                 }
                             </TouchableOpacity>
                             }

@@ -14,7 +14,11 @@ const loginUser = async (loginData) => {
             "Content-Type": "application/json"
         }
     })
-    return response.json()
+    if (!response.ok) {
+        throw new Error("HTTP status " + response.status);
+    } else {
+        return response.json()
+    }
 }
 
 const getLoginUser = async () => {
@@ -98,6 +102,19 @@ const followUser = async (followedId) => {
     return response.json()
 }
 
+const checkFollow = async (userId) => {
+    const token = await storage.getToken()
+    const response = await fetch(`${baseUrl}/user/${userId}/checkfollow`,
+        {
+            method: "GET",
+            headers: {
+                "Authorization": token
+            }
+        })
+    return response.json()
+}
+
+
 export default {
     loginUser,
     getUserById,
@@ -109,5 +126,6 @@ export default {
     getFollower,
     getFollowing,
     checkEmail,
-    followUser
+    followUser,
+    checkFollow
 }

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="redesigned ui">
+      <change afterPath="$PROJECT_DIR$/src/components/Loading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigations/Index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigations/Index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/FollowingReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/UserReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/UserReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/CreateArticle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/CreateArticle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1toiCFLlTt5USvx8KrQqxvb2KlH" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/screens/Welcome" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\PROJECTS\blog-app\src\screens\Welcome" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\PROJECTS\blog-app\src\redux" />
+      <recent name="E:\PROJECTS\blog-app\src\context" />
+    </key>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="" />
+      <created>1623441712835</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623441712835</updated>
+      <workItem from="1623441715350" duration="15734000" />
+      <workItem from="1623493365700" duration="2094000" />
+      <workItem from="1623502761870" duration="189000" />
+      <workItem from="1623503588837" duration="1563000" />
+      <workItem from="1623507377637" duration="8887000" />
+      <workItem from="1623517311649" duration="15803000" />
+      <workItem from="1623589971066" duration="15285000" />
+      <workItem from="1623614298880" duration="2411000" />
+      <workItem from="1623623089904" duration="1909000" />
+      <workItem from="1623625005579" duration="948000" />
+      <workItem from="1623625962856" duration="795000" />
+      <workItem from="1623626770282" duration="3196000" />
+      <workItem from="1623673767406" duration="1375000" />
+      <workItem from="1623675715693" duration="19000" />
+      <workItem from="1623675763617" duration="27019000" />
+      <workItem from="1623710138095" duration="147000" />
+      <workItem from="1623747177781" duration="4732000" />
+      <workItem from="1623751956520" duration="3036000" />
+      <workItem from="1623761112753" duration="8239000" />
+      <workItem from="1623769521251" duration="5000" />
+      <workItem from="1623769560944" duration="15566000" />
+      <workItem from="1623788674021" duration="3730000" />
+    </task>
+    <task id="LOCAL-00001" summary="integrated firebase cloud storage for image and redux for global state management">
+      <created>1623710267077</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623710267077</updated>
+    </task>
+    <task id="LOCAL-00002" summary="redesigned ui">
+      <created>1623781700182</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623781700182</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="integrated firebase cloud storage" />
+    <MESSAGE value="integrated firebase cloud storage for image and redux for global state management" />
+    <MESSAGE value="redesigned ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="redesigned ui" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="265" y="190" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623781710554">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="265" y="190" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623781710554" />
+    <state width="1047" height="263" key="GridCell.Tab.0.bottom" timestamp="1623625056696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1047" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
+    <state width="1047" height="263" key="GridCell.Tab.0.center" timestamp="1623625056696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1047" height="263" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
+    <state width="1047" height="263" key="GridCell.Tab.0.left" timestamp="1623625056696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1047" height="263" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
+    <state width="1047" height="263" key="GridCell.Tab.0.right" timestamp="1623625056696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1047" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2" timestamp="1623710269851">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623710269851" />
+    <state x="64" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1623783878910">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="64" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623783878910" />
+    <state x="167" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623781671555">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="167" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623781671555" />
+    <state x="896" y="49" width="807" height="995" key="dock-window-1" timestamp="1623771681859">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="896" y="49" width="807" height="995" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1623771681859" />
+    <state x="1079" y="0" width="807" height="995" key="dock-window-2" timestamp="1623786342129">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1079" y="0" width="807" height="995" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1623786342129" />
+    <state x="628" y="147" width="807" height="1012" maximized="true" key="dock-window-3" timestamp="1623710286303">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="628" y="147" width="807" height="1012" maximized="true" key="dock-window-3/0.0.1920.1040@0.0.1920.1040" timestamp="1623710286303" />
+    <state x="666" y="396" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1623710152153">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="666" y="396" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623710152153" />
+    <state x="21" y="238" key="run.anything.popup" timestamp="1623786882279">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="21" y="238" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623786882279" />
+  </component>
+</project>

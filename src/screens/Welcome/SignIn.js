@@ -7,9 +7,8 @@ import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context/Context";
 import userService from "../../services/user";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getLoginUser, setLoginUser} from "../../redux/reducers/UserReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {getFollowing} from "../../redux/reducers/FollowingReducer";
+import {useDispatch} from "react-redux";
+import {getLoginUser} from "../../redux/reducers/UserReducer";
 
 const SignIn = () => {
     const [email, setEmail] = useState("")
@@ -32,12 +31,8 @@ const SignIn = () => {
                 AsyncStorage.getItem('token')
                     .then(token => {
                         if (token) {
-                            userService.getLoginUser()
-                                .then(res => {
-                                    dispatch(setLoginUser(res))
-                                    dispatch(getFollowing(res.id))
-                                    setAuth(true)
-                                })
+                            dispatch(getLoginUser())
+                            setAuth(true)
                         }
                     })
             })

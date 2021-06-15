@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Image, ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 import {Feather} from '@expo/vector-icons';
 import ArticleList from "../components/ArticleList";
 import articleService from "../services/article";
 import userService from "../services/user";
 import {useSelector} from "react-redux";
+import Loading from "../components/Loading";
 
 const Home = ({navigation}) => {
     const [topTenUser, setTopTenUser] = useState(null)
@@ -174,8 +175,8 @@ const Home = ({navigation}) => {
         )
     }
 
-    if(!topics && !user && !popularArticles){
-        return null
+    if (!topics && !user && !popularArticles) {
+        return <Loading/>
     }
     return (
         <SafeAreaView style={{flex: 1}}>

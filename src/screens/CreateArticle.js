@@ -15,6 +15,7 @@ const CreateArticle = ({navigation, route}) => {
     const [topic, setTopic] = useState(null)
     const [content, setContent] = useState(null)
     const [photo, setPhoto] = useState(null)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const article = route.params?.article
 
@@ -32,8 +33,8 @@ const CreateArticle = ({navigation, route}) => {
         }
     }, [article])
 
-
     const createArticle = async () => {
+        setLoading(true)
         const newArticle = {
             title,
             topic,
@@ -46,10 +47,10 @@ const CreateArticle = ({navigation, route}) => {
             "upload_preset": "rztxsnps",
         }
         articleService.uploadImage(data)
-            .then((res) => {
-                articleService.updateArticle({id: createdArticle.id, photo: res.url})
-                    .then(res => {
-                        dispatch(addArticle(res))
+            .then((uploadImage) => {
+                articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
+                    .then(response => {
+                        dispatch(addArticle(response))
                         navigation.dispatch(
                             CommonActions.reset({
                                 index: 1,
@@ -72,10 +73,11 @@ const CreateArticle = ({navigation, route}) => {
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             quality: 1,
+            base64: true
         });
 
         if (!result.cancelled) {
-            setPhoto(result.uri)
+            setPhoto(`data:image/jpg;base64,${result.base64}`)
         }
     };
 
@@ -180,13 +182,15 @@ const CreateArticle = ({navigation, route}) => {
                     borderRadius: 12
                 }}
                 onPress={() => createArticle()}
+                disabled={!(title && topic && content && photo)}
             >
                 <Text style={{
                     color: 'white',
                     fontWeight: 'bold',
                     fontSize: 16
                 }}>
-                    {article ? 'Update' : 'Publish'}
+                    {loading && (article ? 'Updating...' :  'Publishing...')}
+                    {!loading && (article ? 'Update' :  'Publish')}
                 </Text>
             </TouchableOpacity>
         </SafeAreaView>

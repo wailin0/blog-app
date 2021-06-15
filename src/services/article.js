@@ -63,7 +63,7 @@ const getTopics = async () => {
 }
 
 const uploadImage = async (data) => {
-    const response = await fetch(`https://api.cloudinary.com/v2/dt4ob4b4c/image/upload`,
+    const response = await fetch(`https://api.cloudinary.com/v1_1/dt4ob4b4c/image/upload`,
         {
             method: "POST",
             body: JSON.stringify(data),
