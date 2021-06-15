@@ -3,6 +3,8 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 
 const UserList = ({user, navigation}) => {
+
+    console.log(user)
     return (
         <TouchableOpacity
             key={user.id}

@@ -4,7 +4,7 @@ const initialState = null
 
 const UserReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "GET_LOGIN_USER":
+        case "SET_LOGIN_USER":
             return action.data
         case "UPDATE_USER":
             return action.data
@@ -23,11 +23,10 @@ export const updateUser = (updatedUser) => {
     }
 }
 
-export const getLoginUser = () => {
+export const setLoginUser = (data) => {
     return async dispatch => {
-        const data = await userService.getLoginUser()
         dispatch({
-            type: 'GET_LOGIN_USER',
+            type: 'SET_LOGIN_USER',
             data
         })
     }

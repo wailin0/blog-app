@@ -1,5 +1,4 @@
 import {baseUrl} from "../config/api";
-import axios from 'axios'
 import storage from "../config/storage";
 
 const getTopTenUser = async () => {
@@ -8,8 +7,14 @@ const getTopTenUser = async () => {
 }
 
 const loginUser = async (loginData) => {
-    const response = await axios.post(`${baseUrl}/user/signin`, loginData)
-    return response.data
+    const response = await fetch(`${baseUrl}/user/signin`, {
+        method: "POST",
+        body: JSON.stringify(loginData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    return response.json()
 }
 
 const getLoginUser = async () => {
@@ -28,8 +33,14 @@ const getUserById = async (userId) => {
 }
 
 const createUser = async (newUser) => {
-    const response = await axios.post(`${baseUrl}/user/signup`, newUser)
-    return response.data
+    const response = await fetch(`${baseUrl}/user/signup`, {
+        method: "POST",
+        body: JSON.stringify(newUser),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    return response.json()
 }
 
 const updateUser = async (updatedUser) => {
@@ -73,6 +84,20 @@ const checkEmail = async (email) => {
     return response.json()
 }
 
+const followUser = async (followedId) => {
+    const token = await storage.getToken()
+    const response = await fetch(`${baseUrl}/user/follow`,
+        {
+            method: "POST",
+            body: JSON.stringify(followedId),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+    return response.json()
+}
+
 export default {
     loginUser,
     getUserById,
@@ -83,5 +108,6 @@ export default {
     getUserArticles,
     getFollower,
     getFollowing,
-    checkEmail
+    checkEmail,
+    followUser
 }

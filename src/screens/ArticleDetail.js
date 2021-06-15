@@ -52,7 +52,8 @@ const ArticleDetail = ({navigation, route}) => {
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    marginHorizontal: 30
                 }}
             >
                 <TouchableOpacity
@@ -75,75 +76,74 @@ const ArticleDetail = ({navigation, route}) => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <View
-                style={{
-                    marginHorizontal: 30,
-                    marginVertical: 10
-                }}
-            >
-                {Header()}
-                <Text
-                    style={{
-                        fontSize: 24,
-                        color: color.darkBlue,
-                        marginVertical: 10,
-                        fontWeight: '700'
-                    }}>
-                    {article.title}
-                </Text>
+            {Header()}
 
+            <ScrollView>
                 <View
                     style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
+                        marginHorizontal: 30,
+                        marginBottom: 10
                     }}
                 >
-                    <TouchableOpacity
+                    <Text
+                        style={{
+                            fontSize: 24,
+                            color: color.darkBlue,
+                            marginVertical: 10,
+                            fontWeight: '700'
+                        }}>
+                        {article.title}
+                    </Text>
+
+                    <View
                         style={{
                             flexDirection: 'row',
-                            marginRight: 'auto'
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
                         }}
-                        onPress={() => navigation.push('User Profile', {userId: article.user.id})}
                     >
-                        <Image
-                            source={{uri: article.user.photo}}
+                        <TouchableOpacity
                             style={{
-                                width: 38, height: 38,
-                                borderRadius: 12,
-                                backgroundColor: 'red'
+                                flexDirection: 'row',
+                                marginRight: 'auto'
                             }}
-                        />
-                        <View style={{marginLeft: 10}}>
-                            <Text style={{
-                                color: color.darkBlueText,
-                                fontSize: 14,
-                            }}>
-                                {article.user.name}
-                            </Text>
-                            <Text style={{
-                                color: color.darkGrey,
-                                fontSize: 12
-                            }}
-                            >{moment(article.createdAt).fromNow()}</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => console.log('share!')}
-                    >
-                        <Feather name="share" size={24} color={color.blue} style={{marginRight: 20}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Feather name="bookmark" size={24} color={color.blue}/>
-                    </TouchableOpacity>
+                            onPress={() => navigation.push('User Profile', {userId: article.user.id})}
+                        >
+                            <Image
+                                source={{uri: article.user.photo}}
+                                style={{
+                                    width: 38, height: 38,
+                                    borderRadius: 12,
+                                    backgroundColor: 'red'
+                                }}
+                            />
+                            <View style={{marginLeft: 10}}>
+                                <Text style={{
+                                    color: color.darkBlueText,
+                                    fontSize: 14,
+                                }}>
+                                    {article.user.name}
+                                </Text>
+                                <Text style={{
+                                    color: color.darkGrey,
+                                    fontSize: 12
+                                }}
+                                >{moment(article.createdAt).fromNow()}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => console.log('share!')}
+                        >
+                            <Feather name="share" size={24} color={color.blue} style={{marginRight: 20}}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Feather name="bookmark" size={24} color={color.blue}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
 
-
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-            >
-                {/*    article cover */}
+                {/*    article cover */
+                }
                 <Image
                     source={{uri: article.photo}}
                     style={{
@@ -160,6 +160,7 @@ const ArticleDetail = ({navigation, route}) => {
                 }}>
                     {article.content}
                 </Text>
+
             </ScrollView>
             <TouchableOpacity
                 style={{

@@ -62,6 +62,18 @@ const getTopics = async () => {
     return response.json()
 }
 
+const uploadImage = async (data) => {
+    const response = await fetch(`https://api.cloudinary.com/v2/dt4ob4b4c/image/upload`,
+        {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    return response.json()
+}
+
 export default {
     getPopularArticles,
     getArticleById,
@@ -70,5 +82,6 @@ export default {
     getUserArticles,
     updateArticle,
     deleteArticle,
-    getTopics
+    getTopics,
+    uploadImage
 }

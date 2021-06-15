@@ -112,7 +112,7 @@ const Home = ({navigation}) => {
                         source={{uri: item.photo}}
                         style={{
                             backgroundColor: 'red',
-                            width: 236, height: 273,
+                            width: 200, height: 200,
                             borderRadius: 28
                         }}
                     />
@@ -120,7 +120,7 @@ const Home = ({navigation}) => {
                         style={{
                             position: 'absolute',
                             color: 'white',
-                            bottom: 30,
+                            bottom: 20,
                             left: 20,
                             fontSize: 18
                         }}

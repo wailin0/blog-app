@@ -20,8 +20,8 @@ const ArticleList = ({article, navigation}) => {
             <Image
                 source={{uri: article.photo}}
                 style={{
-                    width: 92, height: 141,
-                    borderRadius: 16,
+                    width: 92, height: 90,
+                    borderRadius: 5,
                     backgroundColor: 'red'
                 }}
             />

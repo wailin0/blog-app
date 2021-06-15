@@ -8,30 +8,32 @@ import MyArticles from "../components/Profile/MyArticles";
 import userService from "../services/user";
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
-import firebase from 'firebase/app'
-import 'firebase/storage';
 import {updateUser} from "../redux/reducers/UserReducer";
+import articleService from "../services/article";
+import {followUser} from "../redux/reducers/FollowingReducer";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
     const [user, setUser] = useState(null)
 
     const authUser = useSelector(state => state.user)
+    const following = useSelector(state => state.following)
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        setUser(authUser)
-    }, [authUser])
+    const userId = route.params?.userId
 
-    let userId = null
+
     useEffect(() => {
-        userId = route.params?.userId
         if (userId) {
             userService.getUserById(userId)
                 .then(response => setUser(response))
                 .catch(e => console.log(e))
         } else setUser(authUser)
+
+        return () => {
+            setUser(null)
+        }
     }, [])
 
     useEffect(() => {
@@ -52,21 +54,23 @@ const Profile = ({navigation, route}) => {
             aspect: [4, 4],
             quality: 1,
         });
-
         if (!result.cancelled) {
-            const photoName = Math.random().toString(36).substring(7);
-            const response = await fetch(result.uri)
-            const blob = await response.blob();
-            const ref = firebase.storage().ref().child(`/user/${user.id}`).child(`${photoName}.png`);
-            ref.put(blob)
-                .then(() => {
-                    ref.getDownloadURL().then(res => {
-                        dispatch(updateUser({photo: res}))
-                    })
+            let data = {
+                "file": result.uri,
+                "upload_preset": "rztxsnps",
+            }
+            articleService.uploadImage(data)
+                .then((res) => {
+                    dispatch(updateUser({photo: res.url}))
                 })
                 .catch(e => console.log(e))
         }
-    };
+    }
+
+    const follow = () => {
+        dispatch(followUser({followedId: user.id}))
+    }
+
 
     const Header = () => {
         return (
@@ -142,20 +146,20 @@ const Profile = ({navigation, route}) => {
                                         borderWidth: 1
                                     }}
                                 />
-                                {user.id===authUser.id &&
-                                    <TouchableOpacity
-                                        style={{
-                                            position: 'absolute',
-                                            bottom: 0,
-                                            padding: 5,
-                                            right: 0,
-                                            borderRadius: 50,
-                                            backgroundColor: 'darkgray'
-                                        }}
-                                        onPress={uploadImage}
-                                    >
-                                        <Feather name='edit-2' size={15} color='black'/>
-                                    </TouchableOpacity>
+                                {user.id === authUser.id &&
+                                <TouchableOpacity
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: 0,
+                                        padding: 5,
+                                        right: 0,
+                                        borderRadius: 50,
+                                        backgroundColor: 'darkgray'
+                                    }}
+                                    onPress={uploadImage}
+                                >
+                                    <Feather name='edit-2' size={15} color='black'/>
+                                </TouchableOpacity>
                                 }
                             </View>
                             <View style={{marginRight: 'auto', marginLeft: 20}}>
@@ -166,10 +170,42 @@ const Profile = ({navigation, route}) => {
                                     {user.headline}
                                 </Text>
                             </View>
+
+
+                            {(user.id !== authUser.id) &&
+                            <TouchableOpacity
+                                style={{
+                                    top: -20,
+                                    right: -10,
+                                    elevation: 5,
+                                    position: 'absolute',
+                                    backgroundColor: color.darkGrey,
+                                    borderRadius: 5,
+                                    width: 80,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: 3
+                                }}
+                                onPress={() => follow()}
+                            >
+                                {following && !following.some(f => f.following.id === user.id) ?
+                                <>
+                                    <Feather name='user-plus' size={15} color='white'/>
+                                    <Text style={{marginLeft: 5, color: 'white'}}>Follow</Text>
+                                </>
+                                :
+                                <Text>Following</Text>
+                                }
+                            </TouchableOpacity>
+                            }
+
+
                         </View>
+
                         <View>
                             <Text style={{
-                                marginTop: 20,
+                                marginTop: 10,
                                 fontSize: 16,
                                 color: color.darkBlue,
                                 fontWeight: '700'

@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import {SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 import articleService from "../services/article";
 import {useDispatch} from "react-redux";
-import {addArticle, updateArticle} from "../redux/reducers/ArticleReducer";
+import {addArticle} from "../redux/reducers/ArticleReducer";
 import {Picker} from '@react-native-picker/picker';
 import {CommonActions} from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
-import firebase from "firebase";
-import {updateUser} from "../redux/reducers/UserReducer";
-import {Image} from "react-native-web";
+import {Feather} from "@expo/vector-icons";
 
 const CreateArticle = ({navigation, route}) => {
     const [title, setTitle] = useState(null)
@@ -43,32 +41,29 @@ const CreateArticle = ({navigation, route}) => {
         }
         const createdArticle = await articleService.createArticle(newArticle)
 
-        const photoName = Math.random().toString(36).substring(7);
-        const response = await fetch(photo)
-        const blob = await response.blob();
-        const ref = firebase.storage().ref().child(`/article/${createdArticle.id}`).child(`${photoName}.png`);
-        ref.put(blob)
-            .then(() => {
-                ref.getDownloadURL().then(uploadedPhotoURL => {
-                    articleService.updateArticle({id: createdArticle.id ,photo: uploadedPhotoURL})
-                        .then(res => {
-                            dispatch(addArticle(res))
-                            navigation.dispatch(
-                                CommonActions.reset({
-                                    index: 1,
-                                    routes: [
-                                        {name: 'Home'},
-                                        {
-                                            name: 'Article Detail',
-                                            params: {articleId: response.id},
-                                        },
-                                    ],
-                                })
-                            )
-                        })
-                })
+        let data = {
+            "file": photo,
+            "upload_preset": "rztxsnps",
+        }
+        articleService.uploadImage(data)
+            .then((res) => {
+                articleService.updateArticle({id: createdArticle.id, photo: res.url})
+                    .then(res => {
+                        dispatch(addArticle(res))
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 1,
+                                routes: [
+                                    {name: 'Home'},
+                                    {
+                                        name: 'Article Detail',
+                                        params: {articleId: response.id},
+                                    },
+                                ],
+                            })
+                        )
+                    })
             })
-            .catch(e => console.log(e))
     }
 
 
@@ -106,32 +101,35 @@ const CreateArticle = ({navigation, route}) => {
                 }}
             />
 
-
             <TouchableOpacity
                 style={{
-                    backgroundColor: 'darkgray',
-                    width: 150,
-                    marginVertical: 20,
-                    borderRadius: 40,
+                    backgroundColor: 'lightgray',
+                    width: '100%',
+                    height: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginVertical: 10,
+                    borderRadius: 5,
                     textAlign: 'center'
                 }}
                 onPress={uploadImage}
             >
-                <Text>upload cover photo</Text>
+                {photo ?
+                    <Image
+                        source={{uri: photo}}
+                        style={{
+                            width: '100%',
+                            height: 100
+                        }}
+                    />
+                    :
+                    <Feather name="image" size={24} color="black"/>
+                }
             </TouchableOpacity>
-
-            <Image
-                source={{uri: photo}}
-                style={{
-                    width: 300,
-                    height: 50
-                }}
-
-            />
 
             <View
                 style={{
-                    marginVertical: 10,
+                    marginBottom: 10,
                     width: 160,
                     height: 30,
                     justifyContent: 'center',
