@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {FlatList, Image, ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 import {Feather} from '@expo/vector-icons';
 import ArticleList from "../components/ArticleList";
@@ -60,7 +60,7 @@ const Home = ({navigation}) => {
                     style={{
                         marginRight: 10,
                     }}
-                    onPress={() => navigation.push("User Profile", {userId: item.id})}
+                    onPress={() => navigation.navigate("User Profile", {userId: item.id})}
                 >
                     <View
                         style={{

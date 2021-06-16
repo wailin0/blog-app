@@ -4,14 +4,13 @@ import {color} from "../styles/theme";
 
 const UserList = ({user, navigation}) => {
 
-    console.log(user)
     return (
         <TouchableOpacity
             key={user.id}
             style={{
                 marginBottom: 10
             }}
-            onPress={() => navigation.push('User Profile', {userId: user.id})}
+            onPress={() => navigation.push('User UserProfile', {userId: user.id})}
         >
             <View
                 style={{

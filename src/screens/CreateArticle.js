@@ -3,11 +3,12 @@ import {Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
 import {color} from "../styles/theme";
 import articleService from "../services/article";
 import {useDispatch} from "react-redux";
-import {addArticle} from "../redux/reducers/ArticleReducer";
+import {addArticle, updateArticle} from "../redux/reducers/ArticleReducer";
 import {Picker} from '@react-native-picker/picker';
 import {CommonActions} from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 import {Feather} from "@expo/vector-icons";
+import {getLoginUser} from "../redux/reducers/UserReducer";
 
 const CreateArticle = ({navigation, route}) => {
     const [title, setTitle] = useState(null)
@@ -36,11 +37,18 @@ const CreateArticle = ({navigation, route}) => {
     const createArticle = async () => {
         setLoading(true)
         const newArticle = {
+            id: article && article.id,
             title,
             topic,
             content
         }
-        const createdArticle = await articleService.createArticle(newArticle)
+        let createdArticle = null
+        if (article) {
+            createdArticle = await articleService.updateArticle(newArticle)
+        } else {
+            createdArticle = await articleService.createArticle(newArticle)
+            dispatch(getLoginUser())
+        }
 
         let data = {
             "file": photo,
@@ -50,7 +58,11 @@ const CreateArticle = ({navigation, route}) => {
             .then((uploadImage) => {
                 articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
                     .then(response => {
-                        dispatch(addArticle(response))
+                        if (article) {
+                            dispatch(updateArticle(response))
+                        } else {
+                            dispatch(addArticle(response))
+                        }
                         navigation.dispatch(
                             CommonActions.reset({
                                 index: 1,
@@ -189,8 +201,8 @@ const CreateArticle = ({navigation, route}) => {
                     fontWeight: 'bold',
                     fontSize: 16
                 }}>
-                    {loading && (article ? 'Updating...' :  'Publishing...')}
-                    {!loading && (article ? 'Update' :  'Publish')}
+                    {loading && (article ? 'Updating...' : 'Publishing...')}
+                    {!loading && (article ? 'Update' : 'Publish')}
                 </Text>
             </TouchableOpacity>
         </SafeAreaView>

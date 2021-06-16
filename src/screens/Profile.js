@@ -235,22 +235,22 @@ const Profile = ({navigation, route}) => {
                                     style={tab === 1 ? styles.activeTab : styles.inactiveTab}
                                     onPress={() => setTab(1)}
                                 >
-                                    <Text style={styles.tabTextPrimary}>43</Text>
+                                    <Text style={styles.tabTextPrimary}>{user.articleCount}</Text>
                                     <Text style={styles.tabTextSecondary}>Post</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={tab === 2 ? styles.activeTab : styles.inactiveTab}
                                     onPress={() => setTab(2)}
                                 >
-                                    <Text style={styles.tabTextPrimary}>250</Text>
+                                    <Text style={styles.tabTextPrimary}>{user.followingCount}</Text>
                                     <Text style={styles.tabTextSecondary}>Following</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={tab === 3 ? styles.activeTab : styles.inactiveTab}
                                     onPress={() => setTab(3)}
                                 >
-                                    <Text style={styles.tabTextPrimary}>43K</Text>
-                                    <Text style={styles.tabTextSecondary}>Followers</Text>
+                                    <Text style={styles.tabTextPrimary}>{user.followerCount}</Text>
+                                    <Text style={styles.tabTextSecondary}>Follower</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

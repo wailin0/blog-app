@@ -11,6 +11,7 @@ const ArticleDetail = ({navigation, route}) => {
     const [popup, setPopup] = useState(false)
     const [article, setArticle] = useState(null)
     const user = useSelector(state => state.user)
+    const [error, setError] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -19,7 +20,12 @@ const ArticleDetail = ({navigation, route}) => {
     useEffect(() => {
         articleService.getArticleById(articleId)
             .then(res => {
-                setArticle(res)
+                if (!res) {
+                    setError(true)
+                }
+                {
+                    setArticle(res)
+                }
             })
             .catch(e => console.log(e))
     }, [])
@@ -70,13 +76,25 @@ const ArticleDetail = ({navigation, route}) => {
         )
     }
 
+    if (error) {
+        return (
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{color:'red', fontSize:20}}>
+                    This article isn't available
+                </Text>
+            </View>
+        )
+    }
+
     if (!article) {
         return null
     }
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            {Header()}
+            {
+                Header()
+            }
 
             <ScrollView>
                 <View
