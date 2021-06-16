@@ -10,22 +10,25 @@ const SignUp = ({setTab, navigation}) => {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
 
-    const checkUniqueEmail = () => {
-        userService.checkEmail({email})
-            .then(res => setError(res.error))
-            .catch(e => console.log(e))
+    const checkUniqueEmail = async () => {
+        const res = await userService.checkEmail({email})
+        setError(res.error)
+
     }
 
-    const next = () => {
-        const newUser = {
-            name,
-            email,
-            password
+    const next = async () => {
+        await checkUniqueEmail()
+        if (!error) {
+            const newUser = {
+                name,
+                email,
+                password
+            }
+            setTab(1)
+            navigation.push("SignUp Final", {
+                user: newUser
+            })
         }
-        setTab(1)
-        navigation.push("SignUp Final", {
-            user: newUser
-        })
     }
 
     return (

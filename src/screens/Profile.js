@@ -8,8 +8,9 @@ import MyArticles from "../components/Profile/MyArticles";
 import userService from "../services/user";
 import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
-import {updateUser} from "../redux/reducers/UserReducer";
+import {getLoginUser, updateUser} from "../redux/reducers/UserReducer";
 import articleService from "../services/article";
+import Loading from "../components/Loading";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
@@ -72,7 +73,10 @@ const Profile = ({navigation, route}) => {
 
     const follow = () => {
         userService.followUser({followedId: user.id})
-            .then(() => setAlreadyFollow(true))
+            .then(() => {
+                setAlreadyFollow(true)
+                dispatch(getLoginUser())
+            })
     }
 
     const Header = () => {
@@ -107,7 +111,7 @@ const Profile = ({navigation, route}) => {
     }
 
     if (!user) {
-        return null
+        return <Loading />
     }
 
     return (

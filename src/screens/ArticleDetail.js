@@ -6,6 +6,7 @@ import articleService from "../services/article";
 import moment from "moment";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteArticle} from "../redux/reducers/ArticleReducer";
+import Loading from "../components/Loading";
 
 const ArticleDetail = ({navigation, route}) => {
     const [popup, setPopup] = useState(false)
@@ -87,7 +88,7 @@ const ArticleDetail = ({navigation, route}) => {
     }
 
     if (!article) {
-        return null
+        return <Loading />
     }
 
     return (

@@ -3,6 +3,7 @@ import {FlatList, SafeAreaView, Text, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
 import {AuthContext} from "../context/Context";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const more = [
     {
@@ -46,7 +47,10 @@ const More = ({navigation}) => {
                 }}
                 onPress={() => {
                     if (index === 3) setDarkMode(!darkmode)
-                    else if (index === 4) setAuth(false)
+                    else if (index === 4) {
+                        AsyncStorage.removeItem('token')
+                        setAuth(false)
+                    }
                     else navigation.navigate(item.name)
                 }}
             >

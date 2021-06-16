@@ -8,6 +8,7 @@ import {Picker} from '@react-native-picker/picker';
 import articleService from "../services/article";
 import {getArticles} from "../redux/reducers/ArticleReducer";
 import {useDispatch, useSelector} from "react-redux";
+import Loading from "../components/Loading";
 
 const Article = ({navigation, route}) => {
     const topic = route.params?.topic
@@ -80,7 +81,7 @@ const Article = ({navigation, route}) => {
 
 
     if (!topics && !articles) {
-        return null
+        return <Loading />
     }
 
 

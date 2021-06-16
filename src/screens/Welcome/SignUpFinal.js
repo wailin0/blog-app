@@ -16,6 +16,9 @@ const SignUpFinal = ({navigation, route}) => {
                 navigation.goBack()
                 Alert.alert('Account Created Successfully')
             })
+            .catch(e => {
+                navigation.goBack()
+            })
     }
 
     return (

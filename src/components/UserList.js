@@ -10,7 +10,7 @@ const UserList = ({user, navigation}) => {
             style={{
                 marginBottom: 10
             }}
-            onPress={() => navigation.push('User UserProfile', {userId: user.id})}
+            onPress={() => navigation.push('User Profile', {userId: user.id})}
         >
             <View
                 style={{
@@ -35,16 +35,6 @@ const UserList = ({user, navigation}) => {
                     <Text style={{fontSize: 14, color: color.blue}}>
                         {user.headline}
                     </Text>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Text style={{fontSize: 13}}>20 Posts</Text>
-                        <Text style={{fontSize: 13}}> . 20 Following . </Text>
-                        <Text style={{fontSize: 13}}>20 Followers</Text>
-                    </View>
                 </View>
             </View>
         </TouchableOpacity>

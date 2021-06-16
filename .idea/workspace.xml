@@ -19,10 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="replaced firebase storage with cloudinary for image upload">
+    <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="added heroku backend api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/ArticleDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ArticleDetail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/More.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/More.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignUpFinal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignUpFinal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +105,8 @@
       <workItem from="1623788674021" duration="10039000" />
       <workItem from="1623838424303" duration="2060000" />
       <workItem from="1623843382875" duration="6000" />
-      <workItem from="1623843396894" duration="10386000" />
+      <workItem from="1623843396894" duration="11576000" />
+      <workItem from="1623859244675" duration="1725000" />
     </task>
     <task id="LOCAL-00001" summary="integrated firebase cloud storage for image and redux for global state management">
       <created>1623710267077</created>
@@ -129,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623853226960</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added heroku backend api">
+      <created>1623856909249</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623856909249</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +167,8 @@
     <MESSAGE value="redesigned ui" />
     <MESSAGE value="added refresh control and loading spinner" />
     <MESSAGE value="replaced firebase storage with cloudinary for image upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="replaced firebase storage with cloudinary for image upload" />
+    <MESSAGE value="added heroku backend api" />
+    <option name="LAST_COMMIT_MESSAGE" value="added heroku backend api" />
   </component>
   <component name="WindowStateProjectService">
     <state x="265" y="190" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623781710554">
@@ -180,10 +195,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1047" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
-    <state x="452" y="187" key="Vcs.Push.Dialog.v2" timestamp="1623853232581">
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2" timestamp="1623856913993">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="187" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623853232581" />
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623856913993" />
     <state x="64" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1623783878910">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -208,9 +223,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="666" y="396" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623710152153" />
-    <state x="21" y="238" key="run.anything.popup" timestamp="1623786882279">
+    <state x="21" y="238" key="run.anything.popup" timestamp="1623860529373">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="21" y="238" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623786882279" />
+    <state x="21" y="238" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623860529373" />
   </component>
 </project>

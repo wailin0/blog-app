@@ -37,12 +37,6 @@ const SignIn = () => {
                     })
             })
             .catch(() => setError('wrong username or password'))
-
-        if (email === 'wailin@' && password === 'pass') {
-            setAuth(true)
-        } else {
-            setError('wrong email or password')
-        }
     }
 
 
