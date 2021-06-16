@@ -19,14 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="added refresh control and loading spinner">
+    <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="replaced firebase storage with cloudinary for image upload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/ArticleDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ArticleDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/CreateArticle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/CreateArticle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +99,7 @@
       <workItem from="1623788674021" duration="10039000" />
       <workItem from="1623838424303" duration="2060000" />
       <workItem from="1623843382875" duration="6000" />
-      <workItem from="1623843396894" duration="7952000" />
+      <workItem from="1623843396894" duration="10386000" />
     </task>
     <task id="LOCAL-00001" summary="integrated firebase cloud storage for image and redux for global state management">
       <created>1623710267077</created>
@@ -126,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623792768780</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="replaced firebase storage with cloudinary for image upload">
+      <created>1623853226960</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623853226960</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +152,8 @@
     <MESSAGE value="integrated firebase cloud storage for image and redux for global state management" />
     <MESSAGE value="redesigned ui" />
     <MESSAGE value="added refresh control and loading spinner" />
-    <option name="LAST_COMMIT_MESSAGE" value="added refresh control and loading spinner" />
+    <MESSAGE value="replaced firebase storage with cloudinary for image upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="replaced firebase storage with cloudinary for image upload" />
   </component>
   <component name="WindowStateProjectService">
     <state x="265" y="190" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623781710554">
@@ -176,10 +180,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1047" height="263" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623625056696" />
-    <state x="452" y="187" key="Vcs.Push.Dialog.v2" timestamp="1623710269851">
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2" timestamp="1623853232581">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="187" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623710269851" />
+    <state x="452" y="187" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623853232581" />
     <state x="64" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1623783878910">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
