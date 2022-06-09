@@ -11,9 +11,13 @@ const SignUp = ({setTab, navigation}) => {
     const [error, setError] = useState("")
 
     const checkUniqueEmail = async () => {
-        const res = await userService.checkEmail({email})
-        setError(res.error)
-
+        try {
+            const res = await userService.checkEmail({email})
+            setError(res.error)
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     const next = async () => {

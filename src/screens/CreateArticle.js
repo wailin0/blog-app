@@ -2,13 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color} from "../styles/theme";
 import articleService from "../services/article";
-import {useDispatch} from "react-redux";
-import {addArticle, updateArticle} from "../redux/reducers/ArticleReducer";
 import {Picker} from '@react-native-picker/picker';
 import {CommonActions} from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 import {Feather} from "@expo/vector-icons";
-import {getLoginUser} from "../redux/reducers/UserReducer";
 
 const CreateArticle = ({navigation, route}) => {
     const [title, setTitle] = useState(null)
@@ -17,7 +14,7 @@ const CreateArticle = ({navigation, route}) => {
     const [content, setContent] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [loading, setLoading] = useState(false)
-    const dispatch = useDispatch()
+
     const article = route.params?.article
 
     useEffect(() => {
@@ -47,36 +44,29 @@ const CreateArticle = ({navigation, route}) => {
             createdArticle = await articleService.updateArticle(newArticle)
         } else {
             createdArticle = await articleService.createArticle(newArticle)
-            dispatch(getLoginUser())
         }
 
         let data = {
             "file": photo,
             "upload_preset": "rztxsnps",
         }
-        articleService.uploadImage(data)
-            .then((uploadImage) => {
-                articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
-                    .then(response => {
-                        if (article) {
-                            dispatch(updateArticle(response))
-                        } else {
-                            dispatch(addArticle(response))
-                        }
-                        navigation.dispatch(
-                            CommonActions.reset({
-                                index: 1,
-                                routes: [
-                                    {name: 'Home'},
-                                    {
-                                        name: 'Article Detail',
-                                        params: {articleId: response.id},
-                                    },
-                                ],
-                            })
-                        )
-                    })
+        const uploadImage = await articleService.uploadImage(data)
+        const response = await articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
+        if (article) {
+            await articleService.updateArticle(article)
+        }
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [
+                    {name: 'Home'},
+                    {
+                        name: 'Article Detail',
+                        params: {articleId: response.id},
+                    },
+                ],
             })
+        )
     }
 
 

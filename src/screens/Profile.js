@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
@@ -6,20 +6,17 @@ import Following from "../components/Profile/Following";
 import Followers from "../components/Profile/Followers";
 import MyArticles from "../components/Profile/MyArticles";
 import userService from "../services/user";
-import {useDispatch, useSelector} from "react-redux";
 import * as ImagePicker from 'expo-image-picker';
-import {getLoginUser, updateUser} from "../redux/reducers/UserReducer";
 import articleService from "../services/article";
 import Loading from "../components/Loading";
+import {Context} from "../context/Context";
 
 const Profile = ({navigation, route}) => {
     const [tab, setTab] = useState(1)
     const [user, setUser] = useState(null)
     const [alreadyFollow, setAlreadyFollow] = useState(false)
 
-    const authUser = useSelector(state => state.user)
-
-    const dispatch = useDispatch()
+    const {user: authUser} = useContext(Context)
 
     const userId = route.params?.userId
 
@@ -63,11 +60,8 @@ const Profile = ({navigation, route}) => {
                 "file": `data:image/jpg;base64,${result.base64}`,
                 "upload_preset": "rztxsnps",
             }
-            articleService.uploadImage(data)
-                .then((res) => {
-                    dispatch(updateUser({photo: res.url}))
-                })
-                .catch(e => console.log(e))
+            const uploadImage = await articleService.uploadImage(data)
+            await userService.updateUser({photo: uploadImage.url})
         }
     }
 
@@ -75,7 +69,6 @@ const Profile = ({navigation, route}) => {
         userService.followUser({followedId: user.id})
             .then(() => {
                 setAlreadyFollow(true)
-                dispatch(getLoginUser())
             })
     }
 
@@ -111,7 +104,7 @@ const Profile = ({navigation, route}) => {
     }
 
     if (!user) {
-        return <Loading />
+        return <Loading/>
     }
 
     return (

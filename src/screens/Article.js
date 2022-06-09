@@ -6,20 +6,19 @@ import ArticleList from "../components/ArticleList";
 import ArticleGrid from "../components/ArticleGrid";
 import {Picker} from '@react-native-picker/picker';
 import articleService from "../services/article";
-import {getArticles} from "../redux/reducers/ArticleReducer";
-import {useDispatch, useSelector} from "react-redux";
 import Loading from "../components/Loading";
 
 const Article = ({navigation, route}) => {
     const topic = route.params?.topic
-    const articles = useSelector(state => state.article)
+
+    const [articles, setArticles] = useState(null)
+
     const [searchTitle, setSearchTitle] = useState("")
     const [searchTopic, setSearchTopic] = useState("")
     const [submit, setSubmit] = useState(false)
     const [topics, setTopics] = useState([])
     const [tab, setTab] = useState(1)
     const [refreshing, setRefreshing] = React.useState(false);
-    const dispatch = useDispatch()
 
     const [page, setPage] = useState(0)
 
@@ -35,14 +34,19 @@ const Article = ({navigation, route}) => {
             .then(res => setTopics(res))
     }, [])
 
+    const getArticles = async () => {
+        const response = await articleService.getArticles(searchTitle, searchTopic, page)
+        setArticles(response)
+    }
+
     useEffect(() => {
-        dispatch(getArticles(searchTitle, searchTopic, page))
+        getArticles()
     }, [searchTopic, submit])
 
     const onRefresh = useCallback(async () => {
         setPage(0)
         setRefreshing(true)
-        await dispatch(getArticles(searchTitle, searchTopic, 0))
+        await getArticles()
         setRefreshing(false)
     }, [])
 
@@ -81,9 +85,8 @@ const Article = ({navigation, route}) => {
 
 
     if (!topics && !articles) {
-        return <Loading />
+        return <Loading/>
     }
-
 
     return (
         <SafeAreaView style={{flex: 1, marginTop: 30}}>

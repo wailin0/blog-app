@@ -1,34 +1,29 @@
 import {NavigationContainer} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import {StatusBar, View} from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from "react-redux";
 import {AuthContext} from "../context/Context";
 import RootNavigation from "./RootNavigation";
 import WelcomeNavigation from "./WelcomeNavigation";
-import {getLoginUser} from "../redux/reducers/UserReducer";
-
+import userService from "../services/user";
+import tokenStorage from "../config/tokenStorage";
 
 const Index = () => {
-    const [auth, setAuth] = useState(false)
-    const dispatch = useDispatch()
+    const [user, setUser] = useState(false)
 
     useEffect(() => {
-        AsyncStorage.getItem('token')
+        tokenStorage.getToken()
             .then(token => {
                 if (token) {
-                    setAuth(true)
-                    dispatch(getLoginUser())
+                    userService.getLoginUser().then(res => setUser(res))
                 }
             })
-
     }, [])
 
     return (
         <View style={{flex: 1, marginTop: StatusBar.currentHeight}}>
-            <AuthContext.Provider value={{setAuth}}>
+            <AuthContext.Provider value={{user, setUser}}>
                 <NavigationContainer>
-                    {auth
+                    {user
                         ? <RootNavigation/>
                         : <WelcomeNavigation/>
                     }

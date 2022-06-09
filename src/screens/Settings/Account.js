@@ -1,15 +1,15 @@
 import {Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View} from "react-native";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {color, input} from "../../styles/theme";
-import {useSelector} from "react-redux";
 import userService from "../../services/user";
+import {Context} from "../../context/Context";
 
 const Account = ({navigation}) => {
     const [name, setName] = useState("")
     const [headline, setHeadline] = useState("")
     const [aboutMe, setAboutMe] = useState("")
 
-    const user = useSelector(state => state.user)
+    const {user} = useContext(Context)
 
     useEffect(() => {
         setName(user.name)
@@ -38,8 +38,8 @@ const Account = ({navigation}) => {
         <SafeAreaView style={{flex: 1, marginHorizontal: 30}}>
             <View
                 style={{
-                    flex:1,
-                    justifyContent:'center'
+                    flex: 1,
+                    justifyContent: 'center'
                 }}
             >
                 <View>
@@ -74,7 +74,7 @@ const Account = ({navigation}) => {
                         marginBottom: 10,
                         borderRadius: 12
                     }}
-                     onPress={() => update()}
+                    onPress={() => update()}
                 >
                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
                         Update

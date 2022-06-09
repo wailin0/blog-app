@@ -1,20 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Alert, Image, Modal, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
 import articleService from "../services/article";
 import moment from "moment";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteArticle} from "../redux/reducers/ArticleReducer";
 import Loading from "../components/Loading";
+import {Context} from "../context/Context";
 
 const ArticleDetail = ({navigation, route}) => {
     const [popup, setPopup] = useState(false)
     const [article, setArticle] = useState(null)
-    const user = useSelector(state => state.user)
     const [error, setError] = useState(false)
 
-    const dispatch = useDispatch()
+    const {user} = useContext(Context)
 
     const {articleId} = route.params
 
@@ -43,7 +41,7 @@ const ArticleDetail = ({navigation, route}) => {
                 },
                 {
                     text: 'OK', onPress: async () => {
-                        await dispatch(deleteArticle(articleId))
+                        await articleService.deleteArticle(articleId)
                         setPopup(false)
                         navigation.goBack()
                     }
@@ -80,7 +78,7 @@ const ArticleDetail = ({navigation, route}) => {
     if (error) {
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{color:'red', fontSize:20}}>
+                <Text style={{color: 'red', fontSize: 20}}>
                     This article isn't available
                 </Text>
             </View>
@@ -88,7 +86,7 @@ const ArticleDetail = ({navigation, route}) => {
     }
 
     if (!article) {
-        return <Loading />
+        return <Loading/>
     }
 
     return (

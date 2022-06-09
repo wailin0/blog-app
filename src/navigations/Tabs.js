@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
+import Home from "../screens/Home/Home";
 import Profile from "../screens/Profile";
 import More from "../screens/More";
 import Article from "../screens/Article";
@@ -24,6 +24,8 @@ const CustomTabBarButton = ({children, onPress, accessibilityState, navigation})
                 style={{
                     width: 50,
                     height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     borderRadius: 35,
                     backgroundColor: isSelected ? color.darkBlue : color.blue
                 }}
@@ -36,7 +38,11 @@ const CustomTabBarButton = ({children, onPress, accessibilityState, navigation})
 
 const Tabs = ({navigation}) => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
             <Tab.Screen
                 name='Home'
                 component={Home}
@@ -60,6 +66,9 @@ const Tabs = ({navigation}) => {
                 component={CreateArticle}
                 options={{
                     tabBarLabel: '',
+                    tabBarIconStyle: {
+                        top: 5
+                    },
                     tabBarIcon: ({focused}) =>
                         focused
                             ? <Feather name="x" size={24} color='white'/>

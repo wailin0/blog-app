@@ -17,9 +17,9 @@ const RootNavigation = () => {
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName='Home'
+            initialRouteName='Tabs'
         >
-            <Stack.Screen name='Home' component={Tabs}/>
+            <Stack.Screen name='Tabs' component={Tabs}/>
             <Stack.Screen name='Article Detail' component={ArticleDetail}/>
             <Stack.Screen name='Create Article' component={CreateArticle} />
             <Stack.Screen name='User Profile'  component={Profile}/>

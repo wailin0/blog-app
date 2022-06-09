@@ -1,24 +1,25 @@
-import React, {useState} from 'react'
-import {Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import React, {useContext, useState} from 'react'
+import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import logo from "../../../assets/logo.png";
 import {color, input} from "../../styles/theme";
 import userService from "../../services/user";
+import tokenStorage from "../../config/tokenStorage";
+import {Context} from "../../context/Context";
 
-const SignUpFinal = ({navigation, route}) => {
+const SignUpFinal = ({route}) => {
     const [headline, setHeadline] = useState("")
     const [aboutMe, setAboutMe] = useState("")
 
-    const signup = () => {
+    const {setUser} = useContext(Context)
+
+    const signup = async () => {
         const {user} = route.params
-        const update = {...user, headline, aboutMe}
-        userService.createUser(update)
-            .then(res => {
-                navigation.goBack()
-                Alert.alert('Account Created Successfully')
-            })
-            .catch(e => {
-                navigation.goBack()
-            })
+        const registerData = {...user, headline, aboutMe}
+        const response = await userService.createUser(registerData)
+        await tokenStorage.saveToken(response.token)
+        const userData = await userService.getLoginUser()
+        setUser(userData)
+        alert('Account Created Successfully')
     }
 
     return (
