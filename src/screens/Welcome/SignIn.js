@@ -1,33 +1,37 @@
-import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color, input} from "../../styles/theme";
 import google from "../../../assets/google.png";
 import facebook from "../../../assets/facebook.png";
 import twitter from "../../../assets/twitter.png";
 import React, {useContext, useState} from "react";
-import userService from "../../services/user";
 import tokenStorage from "../../config/tokenStorage";
 import {Context} from "../../context/Context";
+import authService from "../../services/auth";
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(true)
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const {setUser} = useContext(Context)
 
     const signIn = async () => {
+        setError(null)
+        setLoading(true)
         try {
-            const response = await userService.loginUser({
+            const response = await authService.loginUser({
                 email,
                 password
             })
-            console.log(response)
+            setLoading(false)
             await tokenStorage.saveToken(response.token)
-            const user = await userService.getLoginUser()
+            const user = await authService.getLoginUser()
             setUser(user)
         } catch (e) {
-            setError("invalid email or password")
+            setError(e.response.data.message)
+            setLoading(false)
         }
     }
 
@@ -46,6 +50,7 @@ const SignIn = () => {
                 value={email}
                 onChangeText={value => setEmail(value)}
                 style={{...input}}
+                autoCapitalize='none'
             />
             <View>
                 <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
@@ -54,6 +59,7 @@ const SignIn = () => {
                     onChangeText={value => setPassword(value)}
                     style={{...input}}
                     secureTextEntry={showPassword}
+                    autoCapitalize='none'
                 />
                 <Text
                     style={{
@@ -75,6 +81,7 @@ const SignIn = () => {
             </Text>
             }
             <TouchableOpacity
+                disabled={loading}
                 style={{
                     backgroundColor: color.blue,
                     justifyContent: 'center',
@@ -83,11 +90,16 @@ const SignIn = () => {
                     marginBottom: 10,
                     borderRadius: 12
                 }}
-                onPress={() => signIn()}
+                onPress={signIn}
             >
-                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
-                    SIGN IN
-                </Text>
+                {loading
+                    ?
+                    <ActivityIndicator size="small" color="#fff"/>
+                    :
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
+                        SIGN IN
+                    </Text>
+                }
             </TouchableOpacity>
             <View
                 style={{
@@ -99,7 +111,9 @@ const SignIn = () => {
                 <Text style={{color: color.darkBlueText, marginRight: 10}}>
                     Forget your password?
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Account Recover Step 1")}
+                >
                     <Text style={{color: color.blue, fontSize: 14, fontWeight: 'bold'}}>Reset here</Text>
                 </TouchableOpacity>
             </View>

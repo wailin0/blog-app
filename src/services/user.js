@@ -6,23 +6,8 @@ const getTopTenUser = async () => {
     return response.data
 }
 
-const loginUser = async (loginData) => {
-    const response = await axios.post(`${baseUrl}/user/signin`, loginData)
-    return response.data
-}
-
-const getLoginUser = async () => {
-    const response = await axios.get(`${baseUrl}/user/profile`)
-    return response.data
-}
-
 const getUserById = async (userId) => {
     const response = await axios.get(`${baseUrl}/user/${userId}`)
-    return response.data
-}
-
-const createUser = async (newUser) => {
-    const response = await axios.post(`${baseUrl}/user/signup`, newUser)
     return response.data
 }
 
@@ -56,6 +41,11 @@ const followUser = async (followedId) => {
     return response.data
 }
 
+const unfollowUser = async (followedId) => {
+    const response = await axios.post(`${baseUrl}/user/unfollow`, followedId)
+    return response.data
+}
+
 const checkFollow = async (userId) => {
     const response = await axios.get(`${baseUrl}/user/${userId}/checkfollow`)
     return response.data
@@ -63,16 +53,14 @@ const checkFollow = async (userId) => {
 
 
 export default {
-    loginUser,
     getUserById,
-    getLoginUser,
     getTopTenUser,
-    createUser,
     updateUser,
     getUserArticles,
     getFollower,
     getFollowing,
     checkEmail,
     followUser,
+    unfollowUser,
     checkFollow
 }

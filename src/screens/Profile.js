@@ -16,7 +16,7 @@ const Profile = ({navigation, route}) => {
     const [user, setUser] = useState(null)
     const [alreadyFollow, setAlreadyFollow] = useState(false)
 
-    const {user: authUser} = useContext(Context)
+    const {user: authUser, setUser: setAuthUser} = useContext(Context)
 
     const userId = route.params?.userId
 
@@ -48,20 +48,24 @@ const Profile = ({navigation, route}) => {
     }, []);
 
     const uploadImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 4],
-            quality: 1,
-            base64: true
-        });
-        if (!result.cancelled) {
-            let data = {
-                "file": `data:image/jpg;base64,${result.base64}`,
-                "upload_preset": "rztxsnps",
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 4],
+                quality: .5,
+                base64: true
+            });
+            if (!result.cancelled) {
+                const uploadImage = await articleService.uploadImage(`data:image/jpg;base64,${result.base64}`)
+                const updatedUser = await userService.updateUser({photo: uploadImage.url})
+                setAuthUser({
+                    ...authUser,
+                    photo: updatedUser.photo
+                })
             }
-            const uploadImage = await articleService.uploadImage(data)
-            await userService.updateUser({photo: uploadImage.url})
+        } catch (e) {
+            console.log(e)
         }
     }
 
@@ -69,6 +73,13 @@ const Profile = ({navigation, route}) => {
         userService.followUser({followedId: user.id})
             .then(() => {
                 setAlreadyFollow(true)
+            })
+    }
+
+    const unfollow = async () => {
+        userService.unfollowUser({followedId: user.id})
+            .then(() => {
+                setAlreadyFollow(false)
             })
     }
 
@@ -187,7 +198,7 @@ const Profile = ({navigation, route}) => {
                                     justifyContent: 'center',
                                     padding: 3
                                 }}
-                                onPress={() => follow()}
+                                onPress={alreadyFollow ? unfollow : follow}
                             >
                                 {alreadyFollow
                                     ?

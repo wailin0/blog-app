@@ -2,8 +2,8 @@ import React, {useContext, useState} from 'react'
 import {FlatList, SafeAreaView, Text, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
-import {AuthContext} from "../context/Context";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import {Context} from "../context/Context";
+import tokenStorage from "../config/tokenStorage";
 
 const more = [
     {
@@ -32,7 +32,7 @@ const More = ({navigation}) => {
 
     const [darkmode, setDarkMode] = useState(false)
 
-    const {setAuth} = useContext(AuthContext)
+    const {setUser} = useContext(Context)
 
 
     const renderItem = ({item, index}) => {
@@ -48,8 +48,8 @@ const More = ({navigation}) => {
                 onPress={() => {
                     if (index === 3) setDarkMode(!darkmode)
                     else if (index === 4) {
-                        AsyncStorage.removeItem('token')
-                        setAuth(false)
+                        tokenStorage.deleteToken()
+                        setUser(null)
                     }
                     else navigation.navigate(item.name)
                 }}

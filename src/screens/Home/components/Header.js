@@ -2,8 +2,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import {color} from "../../../styles/theme";
 import {Feather} from "@expo/vector-icons";
 import {Context} from "../../../context/Context";
-import {useContext} from "react";
-import React from "react";
+import React, {useContext} from "react";
 
 const Header = () => {
 

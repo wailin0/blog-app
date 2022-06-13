@@ -21,7 +21,7 @@ const MyArticles = ({navigation, userId}) => {
     return (
         <>
             <Text style={{color: color.darkBlue, marginBottom: 20, fontSize: 20}}>
-                My Articles
+                Articles
             </Text>
             {
                 myPosts.map(article =>

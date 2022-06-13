@@ -67,7 +67,7 @@ const Tabs = ({navigation}) => {
                 options={{
                     tabBarLabel: '',
                     tabBarIconStyle: {
-                        top: 5
+                        top: 8
                     },
                     tabBarIcon: ({focused}) =>
                         focused

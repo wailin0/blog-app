@@ -10,7 +10,7 @@ import CreateArticle from "../screens/CreateArticle";
 
 const Stack = createStackNavigator()
 
-const RootNavigation = () => {
+const MainNavigation = () => {
 
     return (
         <Stack.Navigator
@@ -21,13 +21,13 @@ const RootNavigation = () => {
         >
             <Stack.Screen name='Tabs' component={Tabs}/>
             <Stack.Screen name='Article Detail' component={ArticleDetail}/>
-            <Stack.Screen name='Create Article' component={CreateArticle} />
-            <Stack.Screen name='User Profile'  component={Profile}/>
-            <Stack.Screen name='Settings' options={{headerShown: true}} component={Settings} />
-            <Stack.Screen name='Account' options={{headerShown: true}} component={Account} />
-            <Stack.Screen name='About' options={{headerShown: true}} component={About} />
+            <Stack.Screen name='Create Article' component={CreateArticle}/>
+            <Stack.Screen name='User Profile' component={Profile}/>
+            <Stack.Screen name='Settings' options={{headerShown: true}} component={Settings}/>
+            <Stack.Screen name='Account' options={{headerShown: true}} component={Account}/>
+            <Stack.Screen name='About' options={{headerShown: true}} component={About}/>
         </Stack.Navigator>
     )
 }
 
-export default RootNavigation
+export default MainNavigation

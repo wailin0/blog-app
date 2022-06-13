@@ -5,11 +5,11 @@ import {color} from "../../../styles/theme";
 import ArticleList from "../../../components/ArticleList";
 
 
-const PopularArticles = ({navigation}) => {
+const RecommendedArticles = ({navigation}) => {
     const [popularArticles, setPopularArticles] = useState(null)
 
     useEffect(() => {
-        articleService.getPopularArticles()
+        articleService.getRecommendedArticles()
             .then(response => setPopularArticles(response))
     }, [])
 
@@ -45,4 +45,4 @@ const PopularArticles = ({navigation}) => {
     )
 }
 
-export default PopularArticles
+export default RecommendedArticles

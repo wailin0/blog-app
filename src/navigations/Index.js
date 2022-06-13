@@ -1,34 +1,59 @@
 import {NavigationContainer} from "@react-navigation/native";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {StatusBar, View} from "react-native";
-import {AuthContext} from "../context/Context";
-import RootNavigation from "./RootNavigation";
+import {Context} from "../context/Context";
+import MainNavigation from "./MainNavigation";
 import WelcomeNavigation from "./WelcomeNavigation";
-import userService from "../services/user";
+import authService from "../services/user";
 import tokenStorage from "../config/tokenStorage";
+import axios from "axios";
 
 const Index = () => {
-    const [user, setUser] = useState(false)
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         tokenStorage.getToken()
             .then(token => {
                 if (token) {
-                    userService.getLoginUser().then(res => setUser(res))
+                    authService.getLoginUser().then(res => {
+                        setUser(res)
+                    })
                 }
             })
     }, [])
 
+    const [error, setError] = useState();
+
+    useMemo(() => {
+        axios.interceptors.response.use(function (response) {
+            // Any status code that lie within the range of 2xx cause this function to trigger
+            // Do something with response data
+            return response;
+        }, function (error) {
+            // Any status codes that falls outside the range of 2xx cause this function to trigger
+            // Do something with response error
+
+            if (error.response.status === 403 || error.response.status === 401) {
+                alert("session expired login again")
+                tokenStorage.deleteToken()
+                setUser(null)
+            }
+
+            return Promise.reject(error);
+        });
+
+    }, [setError])
+
     return (
         <View style={{flex: 1, marginTop: StatusBar.currentHeight}}>
-            <AuthContext.Provider value={{user, setUser}}>
+            <Context.Provider value={{user, setUser}}>
                 <NavigationContainer>
                     {user
-                        ? <RootNavigation/>
+                        ? <MainNavigation/>
                         : <WelcomeNavigation/>
                     }
                 </NavigationContainer>
-            </AuthContext.Provider>
+            </Context.Provider>
         </View>
     )
 }

@@ -25,6 +25,7 @@ axios.interceptors.response.use(function (response) {
 
     if (error.response.status === 403 || error.response.status === 401) {
         alert("session expired login again")
+        tokenStorage.deleteToken()
     }
 
     return Promise.reject(error);

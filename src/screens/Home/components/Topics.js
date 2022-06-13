@@ -22,17 +22,17 @@ const Topics = ({navigation}) => {
                     source={{uri: item.photo}}
                     style={{
                         backgroundColor: 'red',
-                        width: 200, height: 200,
-                        borderRadius: 28
+                        width: 100, height: 100,
+                        borderRadius: 20
                     }}
                 />
                 <Text
                     style={{
                         position: 'absolute',
                         color: 'white',
-                        bottom: 20,
-                        left: 20,
-                        fontSize: 18
+                        bottom: 15,
+                        left: 15,
+                        fontSize: 13
                     }}
                 >
                     {item.title}

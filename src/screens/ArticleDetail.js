@@ -12,6 +12,8 @@ const ArticleDetail = ({navigation, route}) => {
     const [article, setArticle] = useState(null)
     const [error, setError] = useState(false)
 
+    const [alreadyLiked, setAlreadyLiked] = useState(false)
+
     const {user} = useContext(Context)
 
     const {articleId} = route.params
@@ -27,6 +29,12 @@ const ArticleDetail = ({navigation, route}) => {
                 }
             })
             .catch(e => console.log(e))
+    }, [])
+
+    useEffect(() => {
+        articleService.checkLike(articleId).then(res => {
+            setAlreadyLiked(res)
+        })
     }, [])
 
     const deleteUserArticle = () => {
@@ -50,6 +58,15 @@ const ArticleDetail = ({navigation, route}) => {
         )
     }
 
+    const handleLikeArticle = async () => {
+        await articleService.likeArticle(article.id)
+        setAlreadyLiked(true)
+    }
+
+    const handleUnlikeArticle = async () => {
+        await articleService.unlikeArticle(article.id)
+        setAlreadyLiked(false)
+    }
 
     const Header = () => {
         return (
@@ -58,7 +75,8 @@ const ArticleDetail = ({navigation, route}) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginHorizontal: 30
+                    marginVertical: 10,
+                    marginHorizontal: 20
                 }}
             >
                 <TouchableOpacity
@@ -91,11 +109,10 @@ const ArticleDetail = ({navigation, route}) => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            {
-                Header()
-            }
-
             <ScrollView>
+                {
+                    Header()
+                }
                 <View
                     style={{
                         marginHorizontal: 30,
@@ -172,7 +189,8 @@ const ArticleDetail = ({navigation, route}) => {
                 />
 
                 <Text style={{
-                    marginVertical: 20, marginHorizontal: 30,
+                    marginVertical: 20, marginHorizontal: 10,
+                    paddingBottom:80,
                     fontSize: 14, color: color.darkBlueText
                 }}>
                     {article.content}
@@ -180,15 +198,23 @@ const ArticleDetail = ({navigation, route}) => {
 
             </ScrollView>
             <TouchableOpacity
+                onPress={alreadyLiked ? handleUnlikeArticle : handleLikeArticle}
                 style={{
                     position: 'absolute',
                     bottom: 20,
                     right: 30,
-                    backgroundColor: color.blue,
+                    backgroundColor: alreadyLiked ? color.blue : "#fff",
                     borderRadius: 12,
                     justifyContent: 'center',
                     alignItems: 'center',
                     elevation: 5,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
                     width: 111, height: 48
                 }}
             >
@@ -198,8 +224,8 @@ const ArticleDetail = ({navigation, route}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Feather name="thumbs-up" size={24} color='white' style={{marginRight: 10}}/>
-                    <Text style={{color: 'white', fontSize: 16}}>3.3k</Text>
+                    <Feather name="thumbs-up" size={24} color={alreadyLiked ? "#fff" : color.blue} style={{marginRight: 10}}/>
+                    <Text style={{color:  alreadyLiked ? "#fff" : color.blue, fontSize: 16}}>3.3k</Text>
                 </View>
             </TouchableOpacity>
 

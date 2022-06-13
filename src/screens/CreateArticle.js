@@ -3,7 +3,6 @@ import {Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
 import {color} from "../styles/theme";
 import articleService from "../services/article";
 import {Picker} from '@react-native-picker/picker';
-import {CommonActions} from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 import {Feather} from "@expo/vector-icons";
 
@@ -34,10 +33,9 @@ const CreateArticle = ({navigation, route}) => {
     const createArticle = async () => {
         setLoading(true)
         const newArticle = {
-            id: article && article.id,
             title,
-            topic,
-            content
+            topicId: topic.id,
+            content,
         }
         let createdArticle = null
         if (article) {
@@ -46,27 +44,13 @@ const CreateArticle = ({navigation, route}) => {
             createdArticle = await articleService.createArticle(newArticle)
         }
 
-        let data = {
-            "file": photo,
-            "upload_preset": "rztxsnps",
-        }
-        const uploadImage = await articleService.uploadImage(data)
-        const response = await articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
+        const uploadImage = await articleService.uploadImage(photo)
+        await articleService.updateArticle({id: createdArticle.id, photo: uploadImage.url})
         if (article) {
             await articleService.updateArticle(article)
         }
-        navigation.dispatch(
-            CommonActions.reset({
-                index: 1,
-                routes: [
-                    {name: 'Home'},
-                    {
-                        name: 'Article Detail',
-                        params: {articleId: response.id},
-                    },
-                ],
-            })
-        )
+        console.log(createdArticle)
+        navigation.navigate('Article Detail', {articleId: createdArticle.id})
     }
 
 
@@ -75,6 +59,7 @@ const CreateArticle = ({navigation, route}) => {
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             quality: 1,
+            aspect: [16, 9],
             base64: true
         });
 
@@ -151,7 +136,7 @@ const CreateArticle = ({navigation, route}) => {
                     <Picker.Item label="Select Topic" value=""/>
                     {
                         topics.map((topic) =>
-                            <Picker.Item key={topic.title} label={topic.title} value={topic.title}/>
+                            <Picker.Item key={topic.title} label={topic.title} value={topic}/>
                         )
                     }
                 </Picker>

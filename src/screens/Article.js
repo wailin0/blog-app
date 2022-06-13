@@ -14,16 +14,15 @@ const Article = ({navigation, route}) => {
     const [articles, setArticles] = useState(null)
 
     const [searchTitle, setSearchTitle] = useState("")
-    const [searchTopic, setSearchTopic] = useState("")
+    const [searchTopic, setSearchTopic] = useState(null)
     const [submit, setSubmit] = useState(false)
     const [topics, setTopics] = useState([])
     const [tab, setTab] = useState(1)
     const [refreshing, setRefreshing] = React.useState(false);
 
-    const [page, setPage] = useState(0)
+    const [limit, setLimit] = useState(20)
 
     useEffect(() => {
-        setPage(0)
         if (topic) {
             setSearchTopic(topic)
         }
@@ -35,8 +34,13 @@ const Article = ({navigation, route}) => {
     }, [])
 
     const getArticles = async () => {
-        const response = await articleService.getArticles(searchTitle, searchTopic, page)
-        setArticles(response)
+        try {
+            const response = await articleService.getArticles(searchTitle, searchTopic, limit)
+            setArticles(response)
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     useEffect(() => {

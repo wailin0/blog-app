@@ -12,8 +12,13 @@ const SignUp = ({setTab, navigation}) => {
 
     const checkUniqueEmail = async () => {
         try {
-            const res = await userService.checkEmail({email})
-            setError(res.error)
+            const alreadyExist = await userService.checkEmail({email})
+            if (alreadyExist) {
+                setError("email already in used")
+            }
+            else {
+                setError("")
+            }
         }
         catch (e) {
             console.log(e)
@@ -56,12 +61,14 @@ const SignUp = ({setTab, navigation}) => {
                 onBlur={() => checkUniqueEmail()}
                 value={email}
                 onChangeText={value => setEmail(value)}
+                autoCapitalize='none'
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>Password</Text>
             <TextInput
                 style={{...input}}
                 value={password}
                 onChangeText={value => setPassword(value)}
+                autoCapitalize='none'
             />
             <Text style={{color: color.darkBlueText, fontSize: 14}}>
                 Confirm password {((password && confirmPassword) && password !== confirmPassword)
@@ -71,6 +78,7 @@ const SignUp = ({setTab, navigation}) => {
                 style={{...input}}
                 value={confirmPassword}
                 onChangeText={value => setConfirmPassword(value)}
+                autoCapitalize='none'
             />
             <TouchableOpacity
                 style={{

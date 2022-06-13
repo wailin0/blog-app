@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import {FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React from 'react'
+import {SafeAreaView, ScrollView, Text} from "react-native";
 import {color} from "../../styles/theme";
-import ArticleList from "../../components/ArticleList";
-import articleService from "../../services/article";
-import userService from "../../services/user";
-import Loading from "../../components/Loading";
 import Header from "./components/Header";
 import PopularUsers from "./components/PopularUsers";
 import Topics from "./components/Topics";
-import PopularArticles from "./components/LatestArticles";
+import RecommendedArticles from "./components/RecommendedArticles";
 
 const Home = ({navigation}) => {
 
@@ -20,8 +16,8 @@ const Home = ({navigation}) => {
                     Explore today's
                 </Text>
                 <PopularUsers navigation={navigation}/>
-                <Topics navigation={navigation} />
-                <PopularArticles navigation={navigation} />
+                <Topics navigation={navigation}/>
+                <RecommendedArticles navigation={navigation}/>
             </ScrollView>
         </SafeAreaView>
     )

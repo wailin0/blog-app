@@ -6,6 +6,8 @@ import moment from "moment";
 
 const ArticleList = ({article, navigation}) => {
 
+    console.log(article)
+
     return (
         <TouchableOpacity
             style={{
@@ -27,7 +29,7 @@ const ArticleList = ({article, navigation}) => {
             />
             <View style={{marginLeft: 10, flex: 1}}>
                 <Text style={{marginBottom: 5, fontSize: 14, color: color.blue, fontWeight: 'bold'}}>
-                    {article.topic}</Text>
+                    {article.topic?.title}</Text>
                 <Text style={{fontSize: 14, color: color.darkBlue}}>
                     {article.title}
                 </Text>

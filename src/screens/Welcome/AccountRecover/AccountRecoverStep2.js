@@ -1,26 +1,40 @@
-import React, {useContext, useState} from 'react'
-import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
-import logo from "../../../assets/logo.png";
-import {color, input} from "../../styles/theme";
-import authService from "../../services/auth";
-import tokenStorage from "../../config/tokenStorage";
-import {Context} from "../../context/Context";
+import React, {useState} from 'react'
+import {ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import logo from "../../../../assets/logo.png";
+import {color, input} from "../../../styles/theme";
+import authService from "../../../services/auth";
 
-const SignUpFinal = ({route}) => {
-    const [headline, setHeadline] = useState("")
-    const [aboutMe, setAboutMe] = useState("")
+const AccountRecoverStep2 = ({navigation, route}) => {
+    const [code, setCode] = useState("")
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
-    const {setUser} = useContext(Context)
+    const email = route.params?.email
 
-    const signup = async () => {
-        const {user} = route.params
-        const registerData = {...user, headline, aboutMe}
-        const response = await authService.registerUser(registerData)
-        await tokenStorage.saveToken(response.token)
-        const userData = await authService.getLoginUser()
-        setUser(userData)
-        alert('Account Created Successfully')
+    const verifyCode = async () => {
+        setError(null)
+        setLoading(true)
+        try {
+            await authService.verifyCode({code, email})
+            setLoading(false)
+            navigation.navigate("Account Recover Step 3", {code, email})
+        } catch (e) {
+            setError(e.response.data.message)
+            setLoading(false)
+        }
     }
+
+    const sendRecoveryMail = async () => {
+        setLoading(true)
+        try {
+            await authService.sendRecoverEmail({email})
+            setLoading(false)
+        } catch (e) {
+            setError(e.response.data.message)
+            setLoading(false)
+        }
+    }
+
 
     return (
         <View
@@ -28,6 +42,7 @@ const SignUpFinal = ({route}) => {
                 flex: 1
             }}
         >
+
             {/* logo */}
             <View
                 style={{
@@ -68,27 +83,33 @@ const SignUpFinal = ({route}) => {
                         }}
                     >
                         <View>
+                            <Text style={{color: color.darkBlue, fontSize: 24, fontWeight: '700', marginBottom: 10}}>
+                                Password Recovery
+                            </Text>
                             <Text style={{color: color.darkBlueText, fontSize: 14, marginBottom: 20}}>
-                                Tell us a little bit more about you
+                                A verification code was sent to your email
                             </Text>
                             <View>
-                                <Text style={{color: color.darkBlueText, fontSize: 14}}>Who are you?</Text>
+                                <Text style={{color: color.darkBlueText, fontSize: 14}}>
+                                    Enter Code
+                                </Text>
                                 <TextInput
-                                    style={{...input}}
-                                    value={headline}
-                                    placeholder="eg. Teacher, Software Developer, etc"
-                                    onChangeText={value => setHeadline(value)}
-                                />
-                                <Text style={{color: color.darkBlueText, fontSize: 14}}>About You</Text>
-                                <TextInput
-                                    style={{...input}}
-                                    multiline
-                                    placeholder="Brief detail about you..."
-                                    value={aboutMe}
-                                    onChangeText={value => setAboutMe(value)}
+                                    value={code}
+                                    onChangeText={text => setCode(text)}
+                                    maxLength={10}
+                                    style={{...input, fontSize: 15}}
                                 />
                             </View>
+                            {error
+                            && <Text
+                                style={{color: 'red', marginBottom: 10}}
+                            >
+                                {error}
+                            </Text>
+                            }
                             <TouchableOpacity
+                                disabled={!email || loading}
+                                onPress={verifyCode}
                                 style={{
                                     backgroundColor: color.blue,
                                     justifyContent: 'center',
@@ -97,11 +118,15 @@ const SignUpFinal = ({route}) => {
                                     marginBottom: 10,
                                     borderRadius: 12
                                 }}
-                                onPress={() => signup()}
                             >
-                                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
-                                    Sign Up
-                                </Text>
+                                {loading
+                                    ?
+                                    <ActivityIndicator size="small" color="#fff"/>
+                                    :
+                                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
+                                        Confirm
+                                    </Text>
+                                }
                             </TouchableOpacity>
                             <View
                                 style={{
@@ -113,7 +138,10 @@ const SignUpFinal = ({route}) => {
                                 <Text style={{color: color.darkBlueText, marginRight: 10}}>
                                     Didnt get the email?
                                 </Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity
+                                    disabled={!email || loading}
+                                    onPress={sendRecoveryMail}
+                                >
                                     <Text style={{color: color.blue, fontSize: 14, fontWeight: 'bold'}}>Resend</Text>
                                 </TouchableOpacity>
                             </View>
@@ -127,4 +155,4 @@ const SignUpFinal = ({route}) => {
     )
 }
 
-export default SignUpFinal
+export default AccountRecoverStep2
