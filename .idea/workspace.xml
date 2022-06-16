@@ -20,35 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="736652ef-6e2e-479e-9f3d-6dac63df1879" name="Default Changelist" comment="added heroku backend api">
-      <change afterPath="$PROJECT_DIR$/src/screens/Welcome/AccountRecover/AccountRecoverStep1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/Welcome/AccountRecover/AccountRecoverStep2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/Welcome/AccountRecover/AccountRecoverStep3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.expo-shared/assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/.expo-shared/assets.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/responsive.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/Article/components/TopicModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ArticleGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ArticleGrid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ArticleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ArticleList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyArticles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyArticles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/navigations/Index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigations/Index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/navigations/RootNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigations/MainNavigation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/navigations/Tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigations/Tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/navigations/WelcomeNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigations/WelcomeNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Article/Article.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/ArticleDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ArticleDetail.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/CreateArticle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/CreateArticle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Home/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Home/components/LatestArticles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/components/RecommendedArticles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Home/components/PopularUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/components/PopularUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Home/components/RecommendedArticles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/components/RecommendedArticles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Home/components/Topics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Home/components/Topics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/More.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/More.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Welcome/SignUpFinal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Welcome/SignUpFinal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/article.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +74,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/screens/Welcome/AccountRecover" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/config" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -96,13 +82,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\blog-app\src\config" />
       <recent name="D:\PROJECTS\blog-app\src\screens\Welcome\AccountRecover" />
       <recent name="D:\PROJECTS\blog-app\src\screens\Welcome" />
       <recent name="D:\PROJECTS\blog-app\src\screens" />
       <recent name="D:\PROJECTS\blog-app\src\navigations" />
-      <recent name="E:\PROJECTS\blog-app\src\screens\Welcome" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\blog-app\src\screens\Article" />
       <recent name="D:\PROJECTS\blog-app\src\screens\Welcome\AccountRecover" />
       <recent name="D:\PROJECTS\blog-app\src\screens\Home" />
       <recent name="E:\PROJECTS\blog-app\src\redux" />
@@ -160,6 +147,13 @@
       <workItem from="1655112550893" duration="325000" />
       <workItem from="1655114367724" duration="2791000" />
       <workItem from="1655120642299" duration="2784000" />
+      <workItem from="1655131483620" duration="269000" />
+      <workItem from="1655282686829" duration="11000" />
+      <workItem from="1655282721472" duration="8662000" />
+      <workItem from="1655309079454" duration="10438000" />
+      <workItem from="1655322783206" duration="98000" />
+      <workItem from="1655369194827" duration="2378000" />
+      <workItem from="1655372199643" duration="1547000" />
     </task>
     <task id="LOCAL-00001" summary="integrated firebase cloud storage for image and redux for global state management">
       <created>1623710267077</created>
@@ -222,5 +216,16 @@
     <MESSAGE value="replaced firebase storage with cloudinary for image upload" />
     <MESSAGE value="added heroku backend api" />
     <option name="LAST_COMMIT_MESSAGE" value="added heroku backend api" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/screens/Welcome/AccountRecover/AccountRecoverStep3.js</url>
+          <line>35</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

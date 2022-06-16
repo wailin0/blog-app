@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home/Home";
 import Profile from "../screens/Profile";
 import More from "../screens/More";
-import Article from "../screens/Article";
+import Article from "../screens/Article/Article";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
 import CreateArticle from "../screens/CreateArticle";

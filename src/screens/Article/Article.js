@@ -1,12 +1,20 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {FlatList, RefreshControl, SafeAreaView, TextInput, TouchableOpacity, View} from "react-native";
-import {color} from "../styles/theme";
+import {
+    ActivityIndicator,
+    FlatList,
+    RefreshControl,
+    SafeAreaView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
+import {color} from "../../styles/theme";
 import {Feather} from "@expo/vector-icons";
-import ArticleList from "../components/ArticleList";
-import ArticleGrid from "../components/ArticleGrid";
-import {Picker} from '@react-native-picker/picker';
-import articleService from "../services/article";
-import Loading from "../components/Loading";
+import ArticleList from "../../components/ArticleList";
+import ArticleGrid from "../../components/ArticleGrid";
+import articleService from "../../services/article";
+import TopicModal from "./components/TopicModal";
 
 const Article = ({navigation, route}) => {
     const topic = route.params?.topic
@@ -14,13 +22,14 @@ const Article = ({navigation, route}) => {
     const [articles, setArticles] = useState(null)
 
     const [searchTitle, setSearchTitle] = useState("")
-    const [searchTopic, setSearchTopic] = useState(null)
+    const [searchTopic, setSearchTopic] = useState("")
     const [submit, setSubmit] = useState(false)
-    const [topics, setTopics] = useState([])
     const [tab, setTab] = useState(1)
     const [refreshing, setRefreshing] = React.useState(false);
 
     const [limit, setLimit] = useState(20)
+
+    const [topicModal, setTopicModal] = useState(false)
 
     useEffect(() => {
         if (topic) {
@@ -28,17 +37,13 @@ const Article = ({navigation, route}) => {
         }
     }, [topic])
 
-    useEffect(() => {
-        articleService.getTopics()
-            .then(res => setTopics(res))
-    }, [])
-
     const getArticles = async () => {
+        setArticles(null)
         try {
             const response = await articleService.getArticles(searchTitle, searchTopic, limit)
+            console.log(response)
             setArticles(response)
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
@@ -48,12 +53,11 @@ const Article = ({navigation, route}) => {
     }, [searchTopic, submit])
 
     const onRefresh = useCallback(async () => {
-        setPage(0)
+        setLimit(20)
         setRefreshing(true)
         await getArticles()
         setRefreshing(false)
     }, [])
-
 
     const Search = () => {
         return (
@@ -77,7 +81,7 @@ const Article = ({navigation, route}) => {
                     style={{
                         position: 'absolute',
                         right: 45,
-                        bottom: 8
+                        bottom: 10
                     }}
                     onPress={() => setSubmit(!submit)}
                 >
@@ -85,11 +89,6 @@ const Article = ({navigation, route}) => {
                 </TouchableOpacity>
             </View>
         )
-    }
-
-
-    if (!topics && !articles) {
-        return <Loading/>
     }
 
     return (
@@ -104,30 +103,30 @@ const Article = ({navigation, route}) => {
                     justifyContent: 'space-between'
                 }}
             >
-                <View
+                <TouchableOpacity
+                    onPress={() => setTopicModal(true)}
                     style={{
                         width: 150,
                         height: 30,
-                        justifyContent: 'center',
+                        justifyContent: 'space-between',
+                        paddingHorizontal: 10,
                         marginRight: 'auto',
                         elevation: 2,
-                        borderRadius: 10,
+                        borderRadius: 8,
                         backgroundColor: 'white',
+                        flexDirection: 'row',
+                        alignItems: 'center'
                     }}
                 >
-                    <Picker
-                        selectedValue={searchTopic}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setSearchTopic(itemValue)
-                        }>
-                        <Picker.Item label="Any Topic" value=""/>
-                        {
-                            topics.map((topic) =>
-                                <Picker.Item key={topic.title} label={topic.title} value={topic.title}/>
-                            )
-                        }
-                    </Picker>
-                </View>
+                    <Text
+                        numberOfLines={1}
+                        style={{
+                            width: '80%'
+                        }}>
+                        {searchTopic ? searchTopic : "Any Topic"}
+                    </Text>
+                    <Feather name="chevron-down" size={24}/>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => setTab(1)}
@@ -142,6 +141,10 @@ const Article = ({navigation, route}) => {
                 </TouchableOpacity>
 
             </View>
+
+            {!articles &&
+            <ActivityIndicator size="large" color={color.blue}/>
+            }
 
             <FlatList
                 refreshControl={
@@ -162,6 +165,15 @@ const Article = ({navigation, route}) => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={tab === 1 ? {marginLeft: 30} : {marginHorizontal: 30}}
             />
+
+            {topicModal &&
+            <TopicModal topicModal={topicModal}
+                        setTopicModal={setTopicModal}
+                        searchTopic={searchTopic}
+                        setSearchTopic={setSearchTopic}
+            />
+            }
+
         </SafeAreaView>
     )
 }

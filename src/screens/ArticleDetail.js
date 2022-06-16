@@ -165,14 +165,6 @@ const ArticleDetail = ({navigation, route}) => {
                                 >{moment(article.createdAt).fromNow()}</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => console.log('share!')}
-                        >
-                            <Feather name="share" size={24} color={color.blue} style={{marginRight: 20}}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Feather name="bookmark" size={24} color={color.blue}/>
-                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -190,13 +182,43 @@ const ArticleDetail = ({navigation, route}) => {
 
                 <Text style={{
                     marginVertical: 20, marginHorizontal: 10,
-                    paddingBottom:80,
+                    paddingBottom: 80,
                     fontSize: 14, color: color.darkBlueText
                 }}>
                     {article.content}
                 </Text>
 
             </ScrollView>
+
+            {article.disabled &&
+            <View
+                style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    left: 0, right: 0,
+                    backgroundColor: "#fff",
+                    borderRadius: 12,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    elevation: 5,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    height: 40,
+                    marginHorizontal: 20
+                }}
+            >
+                <Text style={{color: 'red', fontSize: 16}}>
+                    This article is currently under review
+                </Text>
+            </View>
+            }
+
+            {!article.disabled &&
             <TouchableOpacity
                 onPress={alreadyLiked ? handleUnlikeArticle : handleLikeArticle}
                 style={{
@@ -224,10 +246,14 @@ const ArticleDetail = ({navigation, route}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Feather name="thumbs-up" size={24} color={alreadyLiked ? "#fff" : color.blue} style={{marginRight: 10}}/>
-                    <Text style={{color:  alreadyLiked ? "#fff" : color.blue, fontSize: 16}}>3.3k</Text>
+                    <Feather name="thumbs-up" size={24} color={alreadyLiked ? "#fff" : color.blue}
+                             style={{marginRight: 10}}/>
+                    <Text style={{color: alreadyLiked ? "#fff" : color.blue, fontSize: 16}}>
+                        {article.likeCount}
+                    </Text>
                 </View>
             </TouchableOpacity>
+            }
 
             <Modal
                 visible={popup}
@@ -267,7 +293,6 @@ const ArticleDetail = ({navigation, route}) => {
                                     style={{
                                         flexDirection: 'row',
                                         alignItems: 'center',
-                                        marginBottom: 15
                                     }}
                                     onPress={() => deleteUserArticle()}
                                 >
@@ -279,36 +304,15 @@ const ArticleDetail = ({navigation, route}) => {
                             <TouchableOpacity
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                    marginBottom: 15
+                                    alignItems: 'center'
                                 }}
                             >
-                                <Feather name="bookmark" style={{marginRight: 10}} size={20} color="black"/>
-                                <Text style={{fontSize: 17}}>Save</Text>
+                                <Feather name="flag" style={{marginRight: 10}} size={20} color="black"/>
+                                <Text style={{fontSize: 17}}>
+                                    Report
+                                </Text>
                             </TouchableOpacity>
-
                         }
-                        <TouchableOpacity
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginBottom: 15
-                            }}
-                        >
-                            <Feather name="share" style={{marginRight: 10}} size={20} color="black"/>
-                            <Text style={{fontSize: 17}}>Share</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Feather name="flag" style={{marginRight: 10}} size={20} color="black"/>
-                            <Text style={{fontSize: 17}}>
-                                Report
-                            </Text>
-                        </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
             </Modal>

@@ -19,11 +19,12 @@ const Topics = ({navigation}) => {
                 onPress={() => navigation.navigate("Article", {topic: item.title})}
             >
                 <Image
-                    source={{uri: item.photo}}
+                    source={{uri: item.image_url}}
                     style={{
                         backgroundColor: 'red',
+                        opacity: .7,
                         width: 100, height: 100,
-                        borderRadius: 20
+                        borderRadius: 10
                     }}
                 />
                 <Text
@@ -31,6 +32,7 @@ const Topics = ({navigation}) => {
                         position: 'absolute',
                         color: 'white',
                         bottom: 15,
+                        fontWeight: 'bold',
                         left: 15,
                         fontSize: 13
                     }}

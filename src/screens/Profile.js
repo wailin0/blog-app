@@ -57,6 +57,7 @@ const Profile = ({navigation, route}) => {
                 base64: true
             });
             if (!result.cancelled) {
+                alert("uploading...")
                 const uploadImage = await articleService.uploadImage(`data:image/jpg;base64,${result.base64}`)
                 const updatedUser = await userService.updateUser({photo: uploadImage.url})
                 setAuthUser({
@@ -74,6 +75,7 @@ const Profile = ({navigation, route}) => {
             .then(() => {
                 setAlreadyFollow(true)
             })
+            .catch(e => alert(e.response.data.message))
     }
 
     const unfollow = async () => {

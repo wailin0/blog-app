@@ -25,32 +25,43 @@ const PopularUsers = ({navigation}) => {
                 }}
                 onPress={() => navigation.navigate("User Profile", {userId: item.id})}
             >
-                <View
-                    style={{
-                        borderWidth: 1,
-                        borderRadius: 18,
-                        padding: 4,
-                        borderColor: color.blue
-                    }}
-                >
-                    <Image
-                        source={{uri: item.photo}}
+                <View style={{
+                    alignItems: 'center'
+                }}>
+                    <View
                         style={{
-                            backgroundColor: 'red',
-                            width: 54, height: 54,
-                            borderRadius: 18
+                            borderWidth: 1,
+                            borderRadius: 18,
+                            padding: 4,
+                            borderColor: color.blue
                         }}
-                    />
+                    >
+                        <Image
+                            source={{uri: item.photo}}
+                            style={{
+                                backgroundColor: 'red',
+                                width: 54, height: 54,
+                                borderRadius: 18
+                            }}
+                        />
+                    </View>
+                    <Text
+                        numberOfLines={2}
+                        style={{
+                            textAlign: 'center',
+                            color: color.darkBlueText,
+                            fontSize: 12,
+                            width: 60
+                        }}>
+                        {item.name}
+                    </Text>
                 </View>
-                <Text style={{textAlign: 'center', color: color.darkBlueText, fontSize: 12}}>
-                    {item.name}
-                </Text>
             </TouchableOpacity>
         )
     }
 
     return (
-        <View style={{marginVertical: 10}}>
+        <View style={{marginTop: 10}}>
             <FlatList
                 data={topTenUser}
                 renderItem={renderItem}

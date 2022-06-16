@@ -3,10 +3,9 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import {Feather} from "@expo/vector-icons";
 import {color} from "../styles/theme";
 import moment from "moment";
+import {scaleHeight, scaleWidth} from "../config/responsive";
 
 const ArticleList = ({article, navigation}) => {
-
-    console.log(article)
 
     return (
         <TouchableOpacity
@@ -22,14 +21,14 @@ const ArticleList = ({article, navigation}) => {
             <Image
                 source={{uri: article.photo}}
                 style={{
-                    width: 92, height: 90,
+                    width: scaleWidth(100), height: scaleHeight(150),
                     borderRadius: 5,
                     backgroundColor: 'red'
                 }}
             />
             <View style={{marginLeft: 10, flex: 1}}>
                 <Text style={{marginBottom: 5, fontSize: 14, color: color.blue, fontWeight: 'bold'}}>
-                    {article.topic?.title}</Text>
+                    {article.topic.title}</Text>
                 <Text style={{fontSize: 14, color: color.darkBlue}}>
                     {article.title}
                 </Text>
@@ -40,7 +39,9 @@ const ArticleList = ({article, navigation}) => {
                         color: color.darkBlueText,
                         marginLeft: 5,
                         marginRight: 10
-                    }}>2.1k</Text>
+                    }}>
+                        {article.likeCount}
+                    </Text>
                     <Feather name="clock" size={16} color={color.darkBlueText}/>
                     <Text style={{
                         fontSize: 16,

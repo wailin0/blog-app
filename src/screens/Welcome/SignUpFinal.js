@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import logo from "../../../assets/logo.png";
 import {color, input} from "../../styles/theme";
 import authService from "../../services/auth";
@@ -9,17 +9,24 @@ import {Context} from "../../context/Context";
 const SignUpFinal = ({route}) => {
     const [headline, setHeadline] = useState("")
     const [aboutMe, setAboutMe] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const {setUser} = useContext(Context)
 
     const signup = async () => {
-        const {user} = route.params
-        const registerData = {...user, headline, aboutMe}
-        const response = await authService.registerUser(registerData)
-        await tokenStorage.saveToken(response.token)
-        const userData = await authService.getLoginUser()
-        setUser(userData)
-        alert('Account Created Successfully')
+        setLoading(true)
+        try {
+            const {user} = route.params
+            const registerData = {...user, headline, aboutMe}
+            const response = await authService.registerUser(registerData)
+            await tokenStorage.saveToken(response.token)
+            const userData = await authService.getLoginUser()
+            setUser(userData)
+            setLoading(false)
+            alert('Account Created Successfully')
+        } catch (e) {
+            setLoading(false)
+        }
     }
 
     return (
@@ -89,6 +96,7 @@ const SignUpFinal = ({route}) => {
                                 />
                             </View>
                             <TouchableOpacity
+                                disabled={loading}
                                 style={{
                                     backgroundColor: color.blue,
                                     justifyContent: 'center',
@@ -99,9 +107,14 @@ const SignUpFinal = ({route}) => {
                                 }}
                                 onPress={() => signup()}
                             >
-                                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
-                                    Sign Up
-                                </Text>
+                                {loading
+                                    ?
+                                    <ActivityIndicator size="small" color="#fff"/>
+                                    :
+                                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>
+                                        Sign Up
+                                    </Text>
+                                }
                             </TouchableOpacity>
                             <View
                                 style={{

@@ -49,7 +49,11 @@ const CreateArticle = ({navigation, route}) => {
         if (article) {
             await articleService.updateArticle(article)
         }
-        console.log(createdArticle)
+        setLoading(false)
+        setTitle(null)
+        setTopic(null)
+        setContent(null)
+        setPhoto(null)
         navigation.navigate('Article Detail', {articleId: createdArticle.id})
     }
 
@@ -94,7 +98,7 @@ const CreateArticle = ({navigation, route}) => {
                 style={{
                     backgroundColor: 'lightgray',
                     width: '100%',
-                    height: 100,
+                    height: 200,
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginVertical: 10,
@@ -108,7 +112,7 @@ const CreateArticle = ({navigation, route}) => {
                         source={{uri: photo}}
                         style={{
                             width: '100%',
-                            height: 100
+                            height: '100%',
                         }}
                     />
                     :
@@ -169,7 +173,7 @@ const CreateArticle = ({navigation, route}) => {
                     borderRadius: 12
                 }}
                 onPress={() => createArticle()}
-                disabled={!(title && topic && content && photo)}
+                disabled={!(title && topic && content && photo) || loading}
             >
                 <Text style={{
                     color: 'white',
